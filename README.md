@@ -2,8 +2,8 @@
 
 ## Names:
 
-1. `[NAME HERE]`
-2. `[NAME HERE]`
+1. `Dannon`
+2. `Jihun`
 
 ## Setup
 
