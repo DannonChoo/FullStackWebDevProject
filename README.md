@@ -3,7 +3,7 @@
 ## Names:
 
 1. `Dannon`
-2. `Hwang Jihun`
+2. `Jihun `
 
 ## Setup
 
