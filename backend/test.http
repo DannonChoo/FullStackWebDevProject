@@ -1,0 +1,19 @@
+POST http://localhost:3000/basic/insert HTTP/1.1
+Content-Type: application/json
+
+{
+    "data": [
+        {
+            "optionId": 1234567890,
+            "companyId": 1234567890,
+            "audienceCount": 10000,
+            "cost": 10
+        },
+        {
+            "optionId": 1234567891,
+            "companyId": 1234567890,
+            "audienceCount": 10000,
+            "cost": 20
+        }
+    ]
+}

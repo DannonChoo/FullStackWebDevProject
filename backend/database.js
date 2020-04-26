@@ -8,7 +8,7 @@ function connect() {
     });
     client.connect();
     return client;  
-}
+};
 
 function resetTable () {
     const client = connect();
@@ -21,13 +21,27 @@ function resetTable () {
             audienceCount INTEGER,
             cost INTEGER
         );
-    `
+    `;
     client.query(query, (err, res) => {
-        console.log(err, res)
-        client.end()
-    })
-}
+        console.log(err, res);
+        client.end();
+    });
+};
+
+function insertOptions(options, callback) {
+    let i = 1;
+    const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++})`).join(',');
+    const values = options.reduce((reduced, option) => [...reduced, option.optionId, option.companyId, option.audienceCount, option.cost], []);
+    const query = `INSERT INTO adOptions (optionId, companyId, audienceCount, cost) VALUES ${template}`;
+    
+    const client = connect();
+    client.query(query, values, (err, result) => {
+        callback(err, result);
+        client.end();
+    });
+};
 
 module.exports = {
-    resetTable
+    resetTable,
+    insertOptions
 }
