@@ -4,15 +4,13 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+- Configured the Basic Setup of Our Express App (Installing modules required and also a simple DB setup)
+- Implemented a Reset Table Function and created a simple POST request API to add in data.
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+- Continue to complete the backend development (query data and result)
+- Work on the Result API and figure out how to implement the knapsack algorithm into the code.
 
 ## Additional Thoughts
 
