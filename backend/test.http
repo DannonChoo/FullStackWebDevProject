@@ -4,16 +4,16 @@ Content-Type: application/json
 {
     "data": [
         {
-            "optionId": 1234567890,
-            "companyId": 1234567890,
+            "optionId": 1234567892,
+            "companyId": 1111111111,
             "audienceCount": 10000,
-            "cost": 10
+            "cost": 5
         },
         {
-            "optionId": 1234567891,
-            "companyId": 1234567890,
+            "optionId": 1234567893,
+            "companyId": 1111111111,
             "audienceCount": 10000,
-            "cost": 20
+            "cost": 15
         }
     ]
 }
