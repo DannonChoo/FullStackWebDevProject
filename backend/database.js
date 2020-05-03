@@ -41,7 +41,36 @@ function insertOptions(options, callback) {
     });
 };
 
+function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback) {
+    let whereClause;
+    let i = 1;
+    const values = [];
+    if (!companyId && !audienceCount) whereClause = '';
+    else {
+        whereClause = 'WHERE ';
+        if (companyId) {
+            whereClause += `companyId = $${i++}`;
+            values.push(parseInt(companyId));
+        };
+        if (audienceCount) {  
+            whereClause += (companyId) ? ` AND audienceCount > $${i++}` : `audienceCount > $${i++}`; 
+            values.push(parseInt(audienceCount));
+        }
+    }
+
+    let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
+    values.push(parseInt(pageSize)); //limit = page size
+    values.push(parseInt(page) * parseInt(pageSize)); // offset = page * pageSize
+    const query = `SELECT * FROM adOptions ${whereClause} ${limitOffsetClause}`;
+
+    const client = connect();
+    client.query(query, values, function(err, {rows}) {
+        client.end();
+        callback(err, rows);
+    })
+}
 module.exports = {
     resetTable,
-    insertOptions
+    insertOptions,
+    getOptions
 }

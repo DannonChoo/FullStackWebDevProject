@@ -25,6 +25,18 @@ app.post('/basic/insert', function(req, res, next) {
   });
 });
 
+app.get('/basic/data', function(req,res,next) {
+  const { companyId, audienceCount, page, pageSize} = req.query;
+  database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+    if (error) {
+      return next(error);
+    }
+    res.json(result);
+  });
+});
+
+  
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
