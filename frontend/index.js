@@ -77,7 +77,7 @@ function registerBasicDataPaginationForm() {
     $('#basic-data-first-page').click(paginateBasicData);
     $('#basic-data-previous-page').click(paginateBasicData);
     $('#basic-data-next-page').click(paginateBasicData);
-    $('basic-data-page-size-select').change(paginateBasicData);
+    $('#basic-data-page-size-select').change(paginateBasicData);
 }
 
 $(document).ready(function() {
