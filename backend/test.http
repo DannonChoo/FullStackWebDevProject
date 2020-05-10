@@ -4,16 +4,40 @@ Content-Type: application/json
 {
     "data": [
         {
-            "optionId": 1234567892,
-            "companyId": 1111111111,
-            "audienceCount": 10000,
-            "cost": 5
+            "optionId": 1000000005,
+            "companyId": 2000000003,
+            "audienceCount": 1500,
+            "cost": 150
         },
         {
-            "optionId": 1234567893,
-            "companyId": 1111111111,
-            "audienceCount": 10000,
-            "cost": 15
+            "optionId": 1000000006,
+            "companyId": 2000000003,
+            "audienceCount": 2500,
+            "cost": 200
+        },
+        {
+            "optionId": 1000000007,
+            "companyId": 2000000004,
+            "audienceCount": 1500,
+            "cost": 100
+        },
+        {
+            "optionId": 1000000008,
+            "companyId": 2000000004,
+            "audienceCount": 2000,
+            "cost": 250
+        },
+        {
+            "optionId": 1000000009,
+            "companyId": 2000000005,
+            "audienceCount": 500,
+            "cost": 50
+        },
+        {
+            "optionId": 1000000010,
+            "companyId": 2000000005,
+            "audienceCount": 1500,
+            "cost": 100
         }
     ]
 }
