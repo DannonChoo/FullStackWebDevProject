@@ -4,18 +4,15 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Designed Front End for Data Viewer
+-   Using JS to get data from the backend and update the frontend site.
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Finish up Wireframes and their respective justifications
+-   Update Code Style
 
 ## Additional Thoughts
 
--   VSCode is sick.
--   This addon is fabulous.
+-   Learnt how to use Update Front End with Backend data.
 -   Lecturer is awesome.
