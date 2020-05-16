@@ -16,8 +16,8 @@ function resetTable () {
         DROP TABLE IF EXISTS adOptions;
         CREATE TABLE adOptions (
             id SERIAL PRIMARY KEY,
-            optionId INTEGER UNIQUE,
-            companyId INTEGER,
+            optionId BIGINT UNIQUE,
+            companyId BIGINT,
             audienceCount INTEGER,
             cost INTEGER
         );
