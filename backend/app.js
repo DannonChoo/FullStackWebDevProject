@@ -16,46 +16,46 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/basic/insert', function(req, res, next) {
-  const { data } = req.body;
-  database.insertOptions(data, (error, result) => {
-    if (error) {
-      return next(error);
-    }
-    console.log(result);
-    res.json(data);
-  });
+app.post('/basic/insert', function (req, res, next) {
+	const { data } = req.body;
+	database.insertOptions(data, (error, result) => {
+		if (error) {
+			return next(error);
+		}
+		console.log(result);
+		res.json(data);
+	});
 });
 
-app.get('/basic/data', function(req,res,next) {
-  const { companyId, audienceCount, page, pageSize} = req.query;
-  database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
-    if (error) {
-      return next(error);
-    }
-    res.json(result);
-  });
+app.get('/basic/data', function (req, res, next) {
+	const { companyId, audienceCount, page, pageSize } = req.query;
+	database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+		if (error) {
+			return next(error);
+		}
+		res.json(result);
+	});
 });
 
-  
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+	next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.json({
-    error : err.message,
-    code : err.status || 500
-  });
+	// render the error page
+	res.status(err.status || 500);
+	res.json({
+		error: err.message,
+		code: err.status || 500
+	});
 });
 
 module.exports = app;

@@ -7,10 +7,10 @@ function connect() {
         connectionString: CONNECTION_STRING,
     });
     client.connect();
-    return client;  
+    return client;
 };
 
-function resetTable () {
+function resetTable() {
     const client = connect();
     const query = `
         DROP TABLE IF EXISTS adOptions;
@@ -33,7 +33,7 @@ function insertOptions(options, callback) {
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++})`).join(',');
     const values = options.reduce((reduced, option) => [...reduced, option.optionId, option.companyId, option.audienceCount, option.cost], []);
     const query = `INSERT INTO adOptions (optionId, companyId, audienceCount, cost) VALUES ${template}`;
-    
+
     const client = connect();
     client.query(query, values, (err, result) => {
         callback(err, result);
@@ -52,8 +52,8 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
             whereClause += `companyId = $${i++}`;
             values.push(parseInt(companyId));
         };
-        if (audienceCount) {  
-            whereClause += (companyId) ? ` AND audienceCount > $${i++}` : `audienceCount > $${i++}`; 
+        if (audienceCount) {
+            whereClause += (companyId) ? ` AND audienceCount > $${i++}` : `audienceCount > $${i++}`;
             values.push(parseInt(audienceCount));
         }
     }
@@ -64,7 +64,7 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
     const query = `SELECT * FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
-    client.query(query, values, function(err, {rows}) {
+    client.query(query, values, function (err, { rows }) {
         client.end();
         callback(err, rows);
     })
