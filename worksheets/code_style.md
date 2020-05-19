@@ -20,9 +20,27 @@ Based on your chosen rules, give an example of a code that follows the code styl
 ### Good Example
 
 ```js
+app.get('/basic/data', function(req,res,next) {
+  const { companyId, audienceCount, page, pageSize} = req.query;
+  database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+    if (error) {
+      return next(error);
+    }
+    res.json(result);
+  });
+});
 ```
 
 ### Bad Example
 
 ```js
+app.get('/basic/data', function(req,res,next) {
+  const { companyid, audiencecount, page, pagesize} = req.query
+  database.getOptions(companyid, audiencecount, page, pagesize, (error, result) => {
+    if (error) {
+    return next(error)
+    }
+    res.json(result)
+  })
+})
 ```
