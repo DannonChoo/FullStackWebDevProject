@@ -6,12 +6,12 @@ This documents helps to guide the look and feel of the code so that even when th
 
 | Rules             | Choices                         |
 | ----------------- | ------------------------------- |
-| Case Styles       | camelCase/snake_case/PascalCase |
-| Acronym Case      | IBM/Ibm/ibm                     |
-| Indentation Style | Allman/1TBS                     |
-| Indentation       | Tabs/Space                      |
-| Indentation Space | 2/4 spaces                      |
-| Semicolon         | Optional/Mandatory              |
+| Case Styles       | camelCase                       |
+| Acronym Case      | IBM                             |
+| Indentation Style | 1TBS                            |
+| Indentation       | Tabs                            |
+| Indentation Space | 4 spaces                        |
+| Semicolon         | Mandatory                       |
 
 ## Examples
 
@@ -21,13 +21,13 @@ Based on your chosen rules, give an example of a code that follows the code styl
 
 ```js
 app.get('/basic/data', function(req,res,next) {
-  const { companyId, audienceCount, page, pageSize} = req.query;
-  database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
-    if (error) {
-      return next(error);
-    }
-    res.json(result);
-  });
+    const { companyId, audienceCount, page, pageSize} = req.query;
+    database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+        if (error) {
+            return next(error);
+        }
+        res.json(result);
+    });
 });
 ```
 
