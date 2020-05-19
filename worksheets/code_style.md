@@ -36,7 +36,7 @@ app.get('/basic/data', function(req,res,next) {
 ```js
 app.get('/basic/data', function(req,res,next) {
   const { companyid, audiencecount, page, pagesize} = req.query
-  database.getOptions(companyid, audiencecount, page, pagesize, (error, result) => {
+  database.getoptions(companyid, audiencecount, page, pagesize, (error, result) => {
     if (error) {
     return next(error)
     }
