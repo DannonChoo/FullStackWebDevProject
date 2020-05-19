@@ -6,14 +6,14 @@ const basicDataQuery = {
 };
 
 const basicDataPaginationFunction = {
-    gotoFirstPage: function() {
+    gotoFirstPage: function () {
         basicDataQuery['page'] = 0;
     },
-    changePage: function(delta) {
+    changePage: function (delta) {
         console.log(delta);
         basicDataQuery['page'] += parseInt(delta);
     },
-    changePageSize: function(newPageSize) {
+    changePageSize: function (newPageSize) {
         console.log(newPageSize);
         basicDataQuery['pageSize'] = newPageSize;
     }
@@ -24,7 +24,7 @@ const basicDataUrl = 'http://localhost:3000/basic/data';
 function populateBasicDataTable(data) {
     console.log(data);
     const dataTableHtml = data.map(
-        ({id, optionid, companyid, audiencecount, cost}) => `
+        ({ id, optionid, companyid, audiencecount, cost }) => `
             <tr>
                 <th scope="row">${id}</th>
                 <td>${optionid}</td>
@@ -44,7 +44,7 @@ function getBasicDataFromBackEnd(callback) {
 }
 
 function refreshBasicDataTable() {
-    getBasicDataFromBackEnd(function(err, data) {
+    getBasicDataFromBackEnd(function (err, data) {
         if (err) return alert(err);
         populateBasicDataTable(data);
     });
@@ -80,7 +80,7 @@ function registerBasicDataPaginationForm() {
     $('#basic-data-page-size-select').change(paginateBasicData);
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     registerBasicDataFilterForm();
     registerBasicDataPaginationForm();
 });
