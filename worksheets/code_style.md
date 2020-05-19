@@ -34,10 +34,13 @@ app.get('/basic/data', function(req,res,next) {
 ### Bad Example
 
 ```js
-app.get('/basic/data', function(req,res,next) {
+app.get('/basic/data', function(req,res,next) 
+{
   const { companyid, audiencecount, page, pagesize} = req.query
-  database.getoptions(companyid, audiencecount, page, pagesize, (error, result) => {
-    if (error) {
+  database.getoptions(companyid, audiencecount, page, pagesize, (error, result) => 
+  {
+    if (error) 
+    {
     return next(error)
     }
     res.json(result)
