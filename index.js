@@ -47,6 +47,10 @@ function getBasicDataFromBackEnd(callback) {
 
 function refreshBasicDataTable() {
     getBasicDataFromBackEnd(function (err, data) {
+        if (data.length == 0) {
+            basicDataQuery['page'] -= 1
+            return alert('You have reached the end of the page.');
+        }
         if (err) return alert(err);
         populateBasicDataTable(data);
     });
