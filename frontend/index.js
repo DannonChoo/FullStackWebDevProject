@@ -8,10 +8,12 @@ const basicDataQuery = {
 const basicDataPaginationFunction = {
     gotoFirstPage: function () {
         basicDataQuery['page'] = 0;
+        console.log(`PageNo: ${basicDataQuery['page']}`);
     },
     changePage: function (delta) {
         console.log(delta);
         basicDataQuery['page'] += parseInt(delta);
+        console.log(`PageNo: ${basicDataQuery['page']}`);
     },
     changePageSize: function (newPageSize) {
         console.log(newPageSize);
