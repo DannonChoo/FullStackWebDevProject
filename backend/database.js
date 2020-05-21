@@ -61,7 +61,7 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
     let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
     values.push(parseInt(pageSize)); //limit = page size
     values.push(parseInt(page) * parseInt(pageSize)); // offset = page * pageSize
-    const query = `SELECT *, COUNT(*) OVER() AS no_of_rows FROM adOptions ${whereClause} ${limitOffsetClause}`;
+    const query = `SELECT * FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
     client.query(query, values, function (err, result) {
