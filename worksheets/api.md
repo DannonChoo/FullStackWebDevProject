@@ -24,20 +24,25 @@ Each API should include
 
 ### Parameters
 
-| parameter | datatype        | example   |
-| --------- | --------------- | --------- |
-| id        | 10 digit number | 123456789 |
+| parameter     | datatype        | example   |
+| ------------- | --------------- | --------- |
+| companyId     | 10 digit number | 123456789 |
+| audienceCount |     INTEGER     |   10000   |
+| page          |     INTEGER     |     1     |
+| pageSize      |     INTEGER     |     5     |
+
 
 ### Response Body
 
 ```json
-{
+{ 
     "result": [
         {
             "id": number,
-            "property1": number,
-            "property2": string,
-            ...
+            "optionid": IDENTIFIER,
+            "companyid": IDENTIFIER,
+            "audiencecount": number,
+            "cost": number
         }
     ]
 }
@@ -55,7 +60,7 @@ Each API should include
 ### Sample Request
 
 ```http
-GET /basic/data?id=1234567890
+GET /basic/data?companyId=1111111111&page=1&pageSize=1
 ```
 
 ### Sample Response
@@ -64,10 +69,11 @@ GET /basic/data?id=1234567890
 {
     "result": [
         {
-            "id": 1234567890,
-            "property1": 1234567890,
-            "property2": "haha",
-            ...
+            "id": 3,
+            "optionid": "1111111112",
+            "companyid": "1111111111",
+            "audiencecount": 1000,
+            "cost": 100
         }
     ]
 }
@@ -77,7 +83,78 @@ GET /basic/data?id=1234567890
 
 ```json
 {
-	"error": "Server Error",
-	"code": 500
+    "error": "invalid input syntax for integer: \"NaN\"",
+    "code": 500
+}
+```
+
+
+## Post Data
+
+| attribute   | value       |
+| ----------- | ----------- |
+| HTTP Method | POST         |
+| Endpoint    | /basic/insert |
+
+### Parameters
+
+| parameter     | datatype        | example   |
+| ------------- | --------------- | --------- |
+| optionId      | 10 digit number | 123456789 |
+| companyId     | 10 digit number | 123456789 |
+| audienceCount |     INTEGER     |   1500    |
+| cost          |     INTEGER     |    200    |
+
+### Response Body
+
+```json
+{
+    "data": [
+        {
+            "optionId": number,
+            "companyId": number ,
+            "audienceCount": number,
+            "cost": number
+        }
+    ]
+}
+```
+
+### Error
+
+```json
+{
+	"error": string,
+	"code": number
+}
+```
+
+### Sample Request
+
+```http
+GET /basic/insert
+```
+
+### Sample Response
+
+```json
+{
+    "data": [
+        {
+            "optionId": 2222222222,
+            "companyId": 2222222222 ,
+            "audienceCount": 1500,
+            "cost": 150
+        }
+    ]
+}
+```
+
+### Sample Error
+
+```json
+{
+    "error": "duplicate key value violates unique constraint \"adoptions_optionid_key\"",
+    "code": 500
 }
 ```

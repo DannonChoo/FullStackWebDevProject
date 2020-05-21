@@ -36,12 +36,27 @@ This document helps you identify the smaller tasks and helps you create a rough 
 
 ## Estimate Schedule
 
-### Member 1 - <ENTER NAME>
+### Member 1 - Hwang Jihun
 
-| Week | Level | Component | Feature       | Task           |
-| ---- | ----- | --------- | ------------- | -------------- |
-| 1    | Basic | Frontend  | Data Viewer   | Wireframe      |
-| 1    | Basic | Frontend  | Result Viewer | Wireframe      |
-| 2-3  | Basic | Frontend  | Data Viewer   | Implementation |
+| Week | Level | Component          | Feature                | Task                       |
+| ---- | ----- | ------------------ | ---------------------- | -------------------------- |
+| 1    | Basic | Backend            | Insert Data API        | Implementation             |
+| 2    | Basic | Frontend           |  Get Data API          | Implementation             |
+| 3    | Basic | Frontend           | Pagination             | Implementation             |
+| 4    | Basic | Frontend           | Data Viewer            |    Wireframe               |
+| 5    | Basic | Frontend & Backend | Fixed Pagination Break | Implementation             |
+| 5    | Basic | Worksheets         | ---------------------- |    Update all worksheets   |
+
+
+### Member 2 - Dannon Choo Jian Hao
+
+| Week | Level | Component  |    Feature    |            Task            |
+| ---- | ----- | ---------  | ------------- | -------------------------- |
+| 1    | Basic |  Backend   | Data Viewer   |         setting up         |
+| 2    | Basic |  Backend   | Result Viewer |         Insert Data        |
+| 3    | Basic |  Backend   | Data Viewer   |        Implementation      |
+| 4    | Basic | Frontend   | Data Viewer   |            HTML            |
+| 5    | Basic | Frontend   | Data Viewer   |          Wireframe         |
+| 5    | Basic | Worksheets | ------------- |    Update all worksheets   |
 
 > This is just a template, you just need to state **WHO** will do **WHAT** and **WHEN**.
