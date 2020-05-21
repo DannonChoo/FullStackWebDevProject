@@ -39,7 +39,7 @@ This document should help you explain how your user interfaces are designed. You
 #### Bad Points
 
 1. Uses different algorithm so there are irrelevent things on the webpage.
-2. Bad looking UI.
+2. Bad looking UI as the data is positioned at the top right of the webpage.
 
 ### Justification 3
 
