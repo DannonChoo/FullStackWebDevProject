@@ -11,8 +11,11 @@ const basicDataPaginationFunction = {
         console.log(`PageNo: ${basicDataQuery['page']}`);
     },
     changePage: function (delta) {
-        console.log(delta);
         basicDataQuery['page'] += parseInt(delta);
+        if (basicDataQuery["page"] < 0) {
+            basicDataQuery["page"] = 0;
+            return alert("You have reached the first page!");
+        }
         console.log(`PageNo: ${basicDataQuery['page']}`);
     },
     changePageSize: function (newPageSize) {
@@ -48,7 +51,8 @@ function getBasicDataFromBackEnd(callback) {
 function refreshBasicDataTable() {
     getBasicDataFromBackEnd(function (err, data) {
         if (data.length == 0) {
-            basicDataQuery['page'] -= 1
+            basicDataQuery['page'] -= 1;
+            console.log(`Backtracking: ${basicDataQuery['page']}`);
             return alert('You have reached the end of the page.');
         }
         if (err) return alert(err);
