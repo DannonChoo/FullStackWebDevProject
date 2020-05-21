@@ -64,8 +64,10 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
     const query = `SELECT *, COUNT(*) OVER() AS no_of_rows FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
-    client.query(query, values, function (err, { rows }) {
+    client.query(query, values, function (err, result) {
         client.end();
+        if (err) return callback(err, result);
+        const { rows } = result;
         callback(err, rows);
     })
 }

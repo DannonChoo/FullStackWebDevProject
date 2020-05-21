@@ -28,13 +28,24 @@ app.post('/basic/insert', function (req, res, next) {
 });
 
 app.get('/basic/data', function (req, res, next) {
-	const { companyId, audienceCount, page, pageSize } = req.query;
-	database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
-		if (error) {
-			return next(error);
-		}
-		res.json(result);
-	});
+	let { companyId, audienceCount, page, pageSize } = req.query;
+	if (page < 0) {
+		page = 0;
+		database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+			if (error) {
+				return next(error);
+			}
+			res.json(result);
+		});
+	}
+	else {
+		database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+			if (error) {
+				return next(error);
+			}
+			res.json(result);
+		});
+	}
 });
 
 
