@@ -22,8 +22,11 @@ app.post('/basic/insert', function (req, res, next) {
 		if (error) {
 			return next(error);
 		}
+		jsonData = {
+			"result" : "success"
+		};
 		console.log(result);
-		res.json(data);
+		res.json(jsonData);
 	});
 });
 

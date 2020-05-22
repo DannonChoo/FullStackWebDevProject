@@ -105,7 +105,7 @@ GET /basic/data?companyId=1111111111&page=1&pageSize=1
 | audienceCount |     INTEGER     |   1500    |
 | cost          |     INTEGER     |    200    |
 
-### Response Body
+### Request Body
 
 ```json
 {
@@ -117,6 +117,14 @@ GET /basic/data?companyId=1111111111&page=1&pageSize=1
             "cost": number
         }
     ]
+}
+```
+
+### Response Body
+
+```json
+{
+    "result": "success"
 }
 ```
 
@@ -132,10 +140,10 @@ GET /basic/data?companyId=1111111111&page=1&pageSize=1
 ### Sample Request
 
 ```http
-GET /basic/insert
+POST /basic/insert
 ```
 
-### Sample Response
+### Request Body
 
 ```json
 {
