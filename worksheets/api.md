@@ -124,7 +124,7 @@ GET /basic/data?companyId=1111111111&page=1&pageSize=1
 
 ```json
 {
-    "result": "success"
+    "result": string
 }
 ```
 
@@ -143,7 +143,7 @@ GET /basic/data?companyId=1111111111&page=1&pageSize=1
 POST /basic/insert
 ```
 
-### Request Body
+### Sample Request Body
 
 ```json
 {
@@ -155,6 +155,14 @@ POST /basic/insert
             "cost": 150
         }
     ]
+}
+```
+
+### Sample Response Body
+
+```json
+{
+    "result": "success"
 }
 ```
 
