@@ -4,15 +4,14 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+- Designed Wireframe and wrote justifications accordingly.
+- Updated codestyle.md 
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Fix Pagination Break 
+-   Polish the wireframe justifications 
+-   Fill up all the worksheets.
 
 ## Additional Thoughts
 
