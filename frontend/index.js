@@ -90,9 +90,6 @@ function filterBasicData(event) {
     $('#basic-data-filter-form input')
         .not(':input[type=submit]')
         .each((idx, input) => {
-            if (idx == 0 && $(input).val().toString().length != 10) {
-                return alert('Invalid company id')
-            }
             console.log($(input).val());
             basicDataQuery[$(input).attr('key')] = $(input).val();
         });
