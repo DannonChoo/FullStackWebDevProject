@@ -54,7 +54,7 @@ function getNoRowsFromBackEnd(callback) {
 function paginate() {
     getNoRowsFromBackEnd(function (err, data) {
         if (err) return alert(err);
-        dataCount = parseInt(data.rows[0].count);
+        dataCount = parseInt(data.count);
         var totalPg = (Math.ceil(dataCount/basicDataQuery['pageSize']))-1;
         if (basicDataQuery['page'] == 0) {
             $('#basic-data-previous-page').hide();

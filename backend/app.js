@@ -46,7 +46,7 @@ app.get('/basic/dataLength', function (req, res, next) {
 			return next(error);
 		}
 		console.log(result);
-		res.json(result);
+		res.json(result.rows[0]);
 	})
 });
 

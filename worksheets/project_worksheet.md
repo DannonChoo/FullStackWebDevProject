@@ -36,8 +36,8 @@ Link: [Use Case Diagram](https://www.plantuml.com/plantuml/svg/0/RP5D4e8m38NtFKM
 
 The above listed are functional requirements, that is, **WHAT** the system should allow users to do. There are also non-functional requirements that state **HOW** a system should perform.
 
--   Q1. Consider the use case of `Compute basic/advance result`, **HOW** is this functionality made available to both JiBaBoom and Adminstrator _(Hint: They are different)_? `(Answer Here)`
--   Q2. Consider the use case of `Insert basic/advance data`. **HOW** is the data stored? `(Answer Here)`
+-   Q1. Consider the use case of `Compute basic/advance result`, **HOW** is this functionality made available to both JiBaBoom and Adminstrator _(Hint: They are different)_? `When the result is computed by the backend, it is sent to both JiBaBoom and the Adminstrator. However, JiBaBoom views the compute result by calling the API in the backend while the Adminstrator views it in the frontend.`
+-   Q2. Consider the use case of `Insert basic/advance data`. **HOW** is the data stored? `The data is stored using PostgreSQL. We have utilized that to insert our data into Elephant SQL and the data can be retrieved with the GET API/Endpoint.`
 
 ---
 
@@ -78,8 +78,8 @@ Link: [Component Diagram](https://www.plantuml.com/plantuml/svg/0/JK-x3i8m3Dpz5L
 
 1. Does the frontend communicate with the mobile? `(Yes/No)`
 2. Does the frontend communicate directly with the database? `(No)`
-3. How should the frontend display data from the database? `(Answer here)`
-4. How does the frontend communicate with backend? `(Answer here)`
+3. How should the frontend display data from the database? `The index.js utilizes functions that include jquery and urls that send http requests to connect to the backend (app.js and database.js). The backend api sends sql queries to the database and the result will be sent to the front end (index.js) which gets displayed in index.html.` 
+4. How does the frontend communicate with backend? `The frontend (index.js) utilizes functions that include jquery and urls that send http requests to connect to the api in app.js that calls functions in database.js to execute queries. Then, the result of the queries will be sent back to the frontend.`
 
 ---
 
@@ -154,7 +154,7 @@ Choose the correct API/Viewer to be used for each of the `???` steps in the diag
 -   Q1. `[Insert]` API (Delete one of the options)
 -   Q2. `[Data]` Viewer
 -   Q3. `[Result]` API  
--   Q4. `[Data]` Viewer
+-   Q4. `[Result]` Viewer
 -   Q5. `[Result]` API
 
 ```
@@ -164,7 +164,7 @@ how can frontend/mobile\nget data from backend?
 Think about how you can do it and type your answer below:
 
 ```
-[Answer Here]
+The frontend sends an HTTP request to the api and to the backend which should fetch the requested data from the backend and return it to the frontend. 
 ```
 
 ---

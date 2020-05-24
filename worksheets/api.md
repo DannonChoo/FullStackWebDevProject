@@ -174,3 +174,40 @@ POST /basic/insert
     "code": 500
 }
 ```
+
+## Get Data Length
+
+| attribute   | value       |
+| ----------- | ----------- |
+| HTTP Method | GET         |
+| Endpoint    | /basic/dataLength |
+
+### Parameters
+
+| parameter     | datatype        | example   |
+| ------------- | --------------- | --------- |
+| count         | INTEGER         | 15        |
+
+
+
+### Response Body
+
+```json
+{ 
+    "count": number 
+}
+```
+
+### Sample Request
+
+```http
+GET /basic/dataLength
+```
+
+### Sample Response
+
+```json
+{
+    "count": "15"
+}
+```
