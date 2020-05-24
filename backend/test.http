@@ -14,11 +14,16 @@ Content-Type: application/json
 
 ### 
 
-GET http://localhost:3000/basic/data?companyId='1111111111'&page=1&pageSize=1 HTTP/1.1
+GET http://localhost:3000/basic/data?companyId='4444444444'&page=1&pageSize=1 HTTP/1.1
 Content-Type: application/json
 
 
 ### 
 
 GET http://localhost:3000/basic/data?audienceCount=1500&page=-1 HTTP/1.1
+Content-Type: application/json
+
+
+###
+GET http://localhost:3000/basic/dataLength HTTP/1.1
 Content-Type: application/json

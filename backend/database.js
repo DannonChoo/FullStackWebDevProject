@@ -71,8 +71,19 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
         callback(err, rows);
     })
 }
+
+function getTotalDataLength(callback) {
+    const query = `SELECT COUNT(*) FROM adOptions`;
+
+    const client = connect();
+    client.query(query, function (err, result) {
+        callback(err, result);
+        client.end();
+    })
+}
 module.exports = {
     resetTable,
     insertOptions,
-    getOptions
+    getOptions,
+    getTotalDataLength
 }

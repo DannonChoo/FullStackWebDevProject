@@ -32,26 +32,23 @@ app.post('/basic/insert', function (req, res, next) {
 
 app.get('/basic/data', function (req, res, next) {
 	let { companyId, audienceCount, page, pageSize } = req.query;
-	if (page < 0) {
-		page = 0;
-		database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
-			if (error) {
-				return next(error);
-			}
-			res.json(result);
-		});
-	}
-	else {
-		database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
-			if (error) {
-				return next(error);
-			}
-			res.json(result);
-		});
-	}
+	database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
+		if (error) {
+			return next(error);
+		}
+		res.json(result);
+	});
 });
 
-
+app.get('/basic/dataLength', function (req, res, next) {
+	database.getTotalDataLength((error, result) => {
+		if (error) {
+			return next(error);
+		}
+		console.log(result);
+		res.json(result);
+	})
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
