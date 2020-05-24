@@ -12,10 +12,6 @@ const basicDataPaginationFunction = {
     },
     changePage: function (delta) {
         basicDataQuery['page'] += parseInt(delta);
-        if (basicDataQuery["page"] < 0) {
-            basicDataQuery["page"] = 0;
-            return alert("You have reached the first page!");
-        }
         console.log(`PageNo: ${basicDataQuery['page']}`);
     },
     changePageSize: function (newPageSize) {
@@ -25,6 +21,7 @@ const basicDataPaginationFunction = {
 };
 
 const basicDataUrl = 'http://localhost:3000/basic/data';
+const basicDataLength = 'http://localhost:3000/basic/dataLength';
 
 function populateBasicDataTable(data) {
     console.log(data);
@@ -48,16 +45,43 @@ function getBasicDataFromBackEnd(callback) {
         .fail((message) => callback(message, null));
 }
 
+function getNoRowsFromBackEnd(callback) {
+    $.get(basicDataLength)
+        .done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
+function paginate() {
+    getNoRowsFromBackEnd(function (err, data) {
+        if (err) return alert(err);
+        dataCount = parseInt(data.rows[0].count);
+        var totalPg = (Math.ceil(dataCount/basicDataQuery['pageSize']))-1;
+        if (basicDataQuery['page'] == 0) {
+            $('#basic-data-previous-page').hide();
+            $('#basic-data-next-page').show();
+        } else if (basicDataQuery['page'] == parseInt(totalPg)) {
+            $('#basic-data-previous-page').show();
+            $('#basic-data-next-page').hide();
+        }else {
+            $('#basic-data-previous-page').show();
+            $('#basic-data-next-page').show();
+        } 
+        console.log("total pgs: "+totalPg);
+        console.log(basicDataQuery['page']);
+        console.log("total rows: "+dataCount);       
+    });
+}
+
 function refreshBasicDataTable() {
     getBasicDataFromBackEnd(function (err, data) {
+        console.log("data"+data);
         if (data.length == 0) {
-            basicDataQuery['page'] -= 1;
-            console.log(`Backtracking: ${basicDataQuery['page']}`);
-            return alert('You have reached the end of the page.');
+            return alert('No results');
         }
         if (err) return alert(err);
         populateBasicDataTable(data);
     });
+    paginate();
 }
 
 function filterBasicData(event) {
@@ -66,6 +90,10 @@ function filterBasicData(event) {
     $('#basic-data-filter-form input')
         .not(':input[type=submit]')
         .each((idx, input) => {
+            if (idx == 0 && $(input).val().toString().length != 10) {
+                return alert('Invalid company id')
+            }
+            console.log($(input).val());
             basicDataQuery[$(input).attr('key')] = $(input).val();
         });
     refreshBasicDataTable();
