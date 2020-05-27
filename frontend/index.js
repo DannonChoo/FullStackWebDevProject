@@ -45,12 +45,6 @@ function getBasicDataFromBackEnd(callback) {
         .fail((message) => callback(message, null));
 }
 
-function paginate() {
-    getNoRowsFromBackEnd(function (err, data) {
-              
-    });
-}
-
 function refreshBasicDataTable() {
     getBasicDataFromBackEnd(function (err, data) {
         if (data.length == 0) {
