@@ -16,10 +16,10 @@ function resetTable() {
         DROP TABLE IF EXISTS adOptions;
         CREATE TABLE adOptions (
             id SERIAL PRIMARY KEY,
-            optionId BIGINT UNIQUE,
-            companyId BIGINT,
-            audienceCount INTEGER,
-            cost INTEGER
+            optionId BIGINT UNIQUE NOT NULL,
+            companyId BIGINT NOT NULL,
+            audienceCount INTEGER NOT NULL,
+            cost INTEGER NOT NULL
         );
     `;
     client.query(query, (err, res) => {
@@ -29,6 +29,9 @@ function resetTable() {
 };
 
 function insertOptions(options, callback) {
+    if (options.length == 0) {
+        return callback({'message': 'Cannot Insert Empty Array.', 'status': 400}, []);
+    }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++})`).join(',');
     const values = options.reduce((reduced, option) => [...reduced, option.optionId, option.companyId, option.audienceCount, option.cost], []);
@@ -61,7 +64,7 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
     let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
     values.push(parseInt(pageSize)); //limit = page size
     values.push(parseInt(page) * parseInt(pageSize)); // offset = page * pageSize
-    const query = `SELECT * FROM adOptions ${whereClause} ${limitOffsetClause}`;
+    const query = `SELECT *, COUNT(*) OVER() AS noOfRows FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
     client.query(query, values, function (err, result) {

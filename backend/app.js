@@ -40,16 +40,6 @@ app.get('/basic/data', function (req, res, next) {
 	});
 });
 
-app.get('/basic/dataLength', function (req, res, next) {
-	database.getTotalDataLength((error, result) => {
-		if (error) {
-			return next(error);
-		}
-		console.log(result);
-		res.json(result.rows[0]);
-	})
-});
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));
