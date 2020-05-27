@@ -45,20 +45,31 @@ function getBasicDataFromBackEnd(callback) {
         .fail((message) => callback(message, null));
 }
 
-function getNoRowsFromBackEnd(callback) {
-    $.get(basicDataLength)
-        .done((result) => callback(null, result))
-        .fail((message) => callback(message, null));
-}
-
 function paginate() {
     getNoRowsFromBackEnd(function (err, data) {
+              
+    });
+}
+
+function refreshBasicDataTable() {
+    getBasicDataFromBackEnd(function (err, data) {
+        if (data.length == 0) {
+            return alert('No results');
+        }
+
+        console.log("data"+ JSON.stringify(data));
+
         if (err) return alert(err);
-        dataCount = parseInt(data.count);
+        dataCount = parseInt(data[0].noofrows);
         var totalPg = (Math.ceil(dataCount/basicDataQuery['pageSize']))-1;
         if (basicDataQuery['page'] == 0) {
-            $('#basic-data-previous-page').hide();
-            $('#basic-data-next-page').show();
+            if (dataCount <= basicDataQuery['pageSize']) {
+                $('#basic-data-previous-page').hide();
+                $('#basic-data-next-page').hide(); 
+            } else {
+                $('#basic-data-previous-page').hide();
+                $('#basic-data-next-page').show(); 
+            }
         } else if (basicDataQuery['page'] == parseInt(totalPg)) {
             $('#basic-data-previous-page').show();
             $('#basic-data-next-page').hide();
@@ -68,20 +79,11 @@ function paginate() {
         } 
         console.log("total pgs: "+totalPg);
         console.log(basicDataQuery['page']);
-        console.log("total rows: "+dataCount);       
-    });
-}
-
-function refreshBasicDataTable() {
-    getBasicDataFromBackEnd(function (err, data) {
-        console.log("data"+data);
-        if (data.length == 0) {
-            return alert('No results');
-        }
+        console.log("total rows: "+dataCount); 
+        
         if (err) return alert(err);
         populateBasicDataTable(data);
     });
-    paginate();
 }
 
 function filterBasicData(event) {
