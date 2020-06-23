@@ -3,7 +3,7 @@
 ## Names:
 
 1. `Dannon`
-2. `Jihun `
+2. `Jihun (Git Branchhhhh) `
 
 ## Setup
 
