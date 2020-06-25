@@ -30,6 +30,8 @@ optionOne = {
   
   options = options.sort((a, b)=> b.audienceCount / b.cost - a.audienceCount / a.cost);
   
+  console.log(options);
+  
   const BUDGET = 4;
   
   let remainingBudget = BUDGET;
@@ -40,10 +42,12 @@ optionOne = {
     const cost = Math.min(remainingBudget, option.cost);
     const ratio = option.audienceCount / option.cost;
     remainingBudget -= cost;
+    let audienceKeepTrack = ratio * cost;
     audienceReached += ratio * cost;
-    bestOptions.push(option.optionId);
+    bestOptions.push({optionId: option.optionId, amount: cost, audienceReached: audienceKeepTrack});
     if (remainingBudget === 0) break;
   }
   
   console.log(audienceReached);
   console.log(bestOptions);
+

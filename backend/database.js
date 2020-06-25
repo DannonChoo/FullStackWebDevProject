@@ -75,8 +75,28 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
     })
 }
 
+function getBasicComputationInfo(options, callback) {
+    if (options.length == 0) {
+        return callback({'message': 'Option ID Array is Empty.', 'status': 400}, []);
+    }
+
+    let optionParams = options.map((item, index) => {return '$' + (index+1)});
+
+    const query = 'SELECT optionid, cost, audiencecount FROM adOptions WHERE optionid IN (' + optionParams.join(',') + ')';
+
+    const client = connect();
+
+    client.query(query, options, function (err, result) {
+        client.end();
+        if (err) return callback(err, result);
+        const { rows } = result;
+        callback(err, rows);
+    })
+}
+
 module.exports = {
     resetTable,
     insertOptions,
-    getOptions
+    getOptions,
+    getBasicComputationInfo
 }

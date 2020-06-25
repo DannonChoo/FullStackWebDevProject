@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 
 const database = require('./database');
+const computeAlgo = require('./backend');
 
 var app = express();
 
@@ -39,6 +40,20 @@ app.get('/basic/data', function (req, res, next) {
 		res.json(result);
 	});
 });
+
+app.get('/basic/result', function (req, res, next) {
+	let {optionIds, budget} = req.query;
+	database.getBasicComputationInfo(optionIds.split(','), (error, result) => {
+		if (error) {
+			return next(error);
+		}
+
+		let bestOptions = computeAlgo.basicComputeBestOption(result, budget);
+
+		res.json(bestOptions);
+	});
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
