@@ -17,7 +17,7 @@ function basicComputeBestOption (options, budget) {
     
     console.log(audienceReached);
 
-    return bestOptions;
+    return {"result": bestOptions};
 }
 
 module.exports = {
