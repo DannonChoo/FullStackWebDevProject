@@ -51,30 +51,30 @@ function refreshBasicDataTable() {
             return alert('No results');
         }
 
-        console.log("data"+ JSON.stringify(data));
+        console.log("data" + JSON.stringify(data));
 
         if (err) return alert(err);
         dataCount = parseInt(data[0].noofrows);
-        var totalPg = (Math.ceil(dataCount/basicDataQuery['pageSize']))-1;
+        var totalPg = (Math.ceil(dataCount / basicDataQuery['pageSize'])) - 1;
         if (basicDataQuery['page'] == 0) {
             if (dataCount <= basicDataQuery['pageSize']) {
                 $('#basic-data-previous-page').hide();
-                $('#basic-data-next-page').hide(); 
+                $('#basic-data-next-page').hide();
             } else {
                 $('#basic-data-previous-page').hide();
-                $('#basic-data-next-page').show(); 
+                $('#basic-data-next-page').show();
             }
         } else if (basicDataQuery['page'] == parseInt(totalPg)) {
             $('#basic-data-previous-page').show();
             $('#basic-data-next-page').hide();
-        }else {
+        } else {
             $('#basic-data-previous-page').show();
             $('#basic-data-next-page').show();
-        } 
-        console.log("total pgs: "+totalPg);
+        }
+        console.log("total pgs: " + totalPg);
         console.log(basicDataQuery['page']);
-        console.log("total rows: "+dataCount); 
-        
+        console.log("total rows: " + dataCount);
+
         if (err) return alert(err);
         populateBasicDataTable(data);
     });
@@ -114,4 +114,11 @@ function registerBasicDataPaginationForm() {
 $(document).ready(function () {
     registerBasicDataFilterForm();
     registerBasicDataPaginationForm();
+});
+
+$(function () {
+    $(document).scroll(function () {
+        var $nav = $(".navbar");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+    });
 });
