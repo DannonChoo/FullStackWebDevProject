@@ -10,7 +10,7 @@ function basicComputeBestOption (options, budget) {
         const ratio = option.audiencecount / option.cost;
         remainingBudget -= cost;
         let audienceKeepTrack = ratio * cost;
-        audienceReached += ratio * cost;
+        audienceReached += audienceKeepTrack;
         bestOptions.push({optionId: option.optionid, amount: cost, audienceReached: audienceKeepTrack});
         if (remainingBudget === 0) break;
     }
