@@ -43,7 +43,7 @@ optionOne = {
     const ratio = option.audienceCount / option.cost;
     remainingBudget -= cost;
     let audienceKeepTrack = ratio * cost;
-    audienceReached += ratio * cost;
+    audienceReached += audienceKeepTrack;
     bestOptions.push({optionId: option.optionId, amount: cost, audienceReached: audienceKeepTrack});
     if (remainingBudget === 0) break;
   }
