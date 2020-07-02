@@ -32,3 +32,8 @@ body {
 .table th {
     border: black solid 1px !important;
 }
+
+form input[type="number"] {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
