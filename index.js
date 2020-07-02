@@ -71,6 +71,11 @@ function refreshBasicDataTable() {
             $('#basic-data-previous-page').show();
             $('#basic-data-next-page').show();
         }
+        if (basicDataQuery['page'] != 0) {
+            $('#basic-data-page-size-select').hide()
+        } else {
+            $('#basic-data-page-size-select').show()
+        }
         console.log("total pgs: " + totalPg);
         console.log(basicDataQuery['page']);
         console.log("total rows: " + dataCount);
