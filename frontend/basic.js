@@ -1,41 +1,39 @@
 const basicResultUrl = 'http://localhost:3000/basic/result';
 
 const basicResultQuery = {
-    optionId: [],
-    amount: null,
-    audienceReached: null,
+    optionIds: [],
+    budget: null,
 };
 
 const trackField = {
     counter: 3,
 };
 
-function getBasicResultFromBackEnd(data) {
+function populateBasicResultTable(data) {
     console.log(data);
-    // const dataTableHtml = data.map(
-    //     ({ id, optionid, companyid, audiencecount, cost }) => `
-    //         <tr>
-    //             <th scope="row">${id}</th>
-    //             <td>${optionid}</td>
-    //             <td>${companyid}</td>
-    //             <td>${audiencecount}</td>
-    //             <td>${cost}</td>
-    //         </tr>
-    // `,
-    // );
-    // $('#basic-data-tbody').html(dataTableHtml);
+    const dataTableHtml = data.result.map(
+        ({ optionId, amount, audienceReached }) => `
+            <tr>
+                <th scope="row">${optionId}</th>
+                <td>${amount}</td>
+                <td>${audienceReached}</td>
+            </tr>
+    `,
+    );
+    $('#basic-data-tbody').html(dataTableHtml);
 }
 
-function populateBasicResultTable(callback) {
+function getBasicResultFromBackEnd(callback) {
     $.get(basicResultUrl, basicResultQuery)
         .done((result) => callback(null, result))
         .fail((message) => callback(message, null));
+    basicResultQuery['optionIds'] = [];
 }
 
 function refreshBasicResultTable() {
     getBasicResultFromBackEnd(function (err, data) {
-        if (data.length == 0) {
-            return alert('No results');
+        if (data.result.length == 0) {
+            return alert('The Option IDs you have inputted do not exist.');
         }
 
         console.log("data" + JSON.stringify(data));
@@ -51,13 +49,21 @@ function compute() {
         .not(':input[type=submit]')
         .each((_, input) => {
             console.log($(input).val());
-            basicResultQuery[$(input).attr('key')] = $(input).val();
-            resultArray.push(basicResultQuery[$(input).attr('key')]);
+            if ($(input).attr('key') == 'optionId') {
+                basicResultQuery['optionIds'].push(parseInt($(input).val()));
+            }
+            else if ($(input).attr('key') == 'budget'){
+                basicResultQuery['budget'] = parseInt($(input).val());
+            }
+            resultArray.push($(input).val());
         });
+    basicResultQuery['optionIds'] = basicResultQuery['optionIds'].join();
     console.log("array: "+resultArray);
+    console.log("basicResultQuery: "+ JSON.stringify(basicResultQuery));
     if (resultArray.length < 3) {
         return alert('Requires at least 2 Option IDs');
     }
+    
     refreshBasicResultTable();
     return false;
 }
