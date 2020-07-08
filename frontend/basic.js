@@ -1,5 +1,4 @@
 const basicResultUrl = 'http://localhost:3000/basic/result';
-const basicDataForCheck = 'http://localhost:3000/basic/validateResultData';
 
 const basicResultQuery = {
     optionIds: [],
@@ -31,46 +30,16 @@ function getBasicResultFromBackEnd(callback) {
     basicResultQuery['optionIds'] = [];
 }
 
-function getBasicDataFromBackEnd(callback) {
-    $.get(basicDataForCheck, {})
-        .done((result) => callback(null, result))
-        .fail((message) => callback(message, null));
-}
-
-function refreshBasicResultTable(id) {
-
+function refreshBasicResultTable() {
     getBasicResultFromBackEnd(function (err, data) {
-
-        getBasicDataFromBackEnd(function (err, data) {
-            return new Promise((resolve, reject) => {
-                console.log(id);
-                let data = callback.result
-                let check = null;
-                let checkOptionId = data.map((item, index) => {return item.optionid});
-                let idArray = id.split(',');
-                for (const option of idArray) {
-                    if (checkOptionId.includes(option) == false) {
-                        check = false;
-                    }
-                }
-                resolve(check);
-            })
-        });
-
-        function validateExist(){
-            let idCheck = getBasicDataFromBackEnd();
-            console.log(idCheck);
-        }
-        
-        if (id.split(",").length < 2) {
-            return alert("Requires at least 2 optionIds");
-        } else if (CheckDuplicates() == true) {
+        // if (data.length == 0) {
+        //     return alert('Minimum 2 IDs');
+        // }
+        if (CheckDuplicates() == true) {
             return alert('Duplicate Option IDs Found! (Highlighted in Red)');
-        } else if (validateExist() == false) {
-            return alert('Invalid Option ID Found!');
         }
         console.log("data" + JSON.stringify(data));
-        if (err) return alert(err);
+        if (err) return alert(JSON.stringify(err.responseJSON.error));
         populateBasicResultTable(data);
         
     });
@@ -116,6 +85,9 @@ function compute() {
     console.log("basicResultQuery['optionIds']: "+basicResultQuery['optionIds']);
     console.log("basicResultQuery: "+ JSON.stringify(basicResultQuery));
     console.log("length: "+ basicResultQuery['optionIds'].split(",").length);
+
+
+
     refreshBasicResultTable(basicResultQuery['optionIds']);
     return false;
 }
