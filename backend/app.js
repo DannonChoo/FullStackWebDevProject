@@ -17,66 +17,45 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/basic/insert', function (req, res, next) {
+// Aysnchronous Insert API
+app.post('/basic/insert', async (req, res, next) => {
 	const { data } = req.body;
-	database.insertOptions(data, (error, result) => {
-		if (error) {
-			return next(error);
-		}
-		jsonData = {
+	
+	try {
+		const result = await database.insertOptions(data);
+		
+		const jsonData = {
 			"result" : "success"
 		};
-		console.log(result);
+		
 		res.json(jsonData);
-	});
+	}
+	catch (err){
+		return next(err);
+	}
 });
 
-app.get('/basic/data', function (req, res, next) {
+app.get('/basic/data', async (req, res, next) => {
 	let { companyId, audienceCount, page, pageSize } = req.query;
-	database.getOptions(companyId, audienceCount, page, pageSize, (error, result) => {
-		if (error) {
-			return next(error);
-		}
-		res.json(result);
-	});
-});
-
-//Async version
-app.get('/basic/asyncdata', async (req, res, next) => {
-	console.log("async");
 	try {
-		const allOptions = await database.getAllOptions();
-		console.log(allOptions);
-		console.log('Pass');
+		const result = await database.getOptions(companyId, audienceCount, page, pageSize);
+		res.json(result);
 	}
 	catch (err) {
 		return next(err);
-		console.log("Fail");
 	}
-	res.json(allOptions);
 });
 
-app.get('/basic/result', function (req, res, next) {
+app.get('/basic/result', async (req, res, next) => {
 	let {optionIds, budget} = req.query;
-	database.getBasicComputationInfo(optionIds.split(','), (error, result) => {
-		if (error) {
-			return next(error);
-		}
-
+	try {
+		const result = await database.getBasicComputationInfo(optionIds.split(','));
 		let bestOptions = computeAlgo.basicComputeBestOption(result, budget);
-
 		res.json(bestOptions);
-	});
-});
-
-app.get('/basic/validateResultData', function (req, res, next) {
-	database.getAllOptions((error, result) => {
-		if (error) {
-			return next(error);
-		}
-
-		res.json(result);
-	})
+	}
+	catch (err) {
+		return next(err);
+	}
 });
 
 // catch 404 and forward to error handler
