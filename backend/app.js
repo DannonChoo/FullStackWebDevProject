@@ -41,6 +41,21 @@ app.get('/basic/data', function (req, res, next) {
 	});
 });
 
+//Async version
+app.get('/basic/asyncdata', async (req, res, next) => {
+	console.log("async");
+	try {
+		const allOptions = await database.getAllOptions();
+		console.log(allOptions);
+		console.log('Pass');
+	}
+	catch (err) {
+		return next(err);
+		console.log("Fail");
+	}
+	res.json(allOptions);
+});
+
 app.get('/basic/result', function (req, res, next) {
 	let {optionIds, budget} = req.query;
 	database.getBasicComputationInfo(optionIds.split(','), (error, result) => {
@@ -54,6 +69,15 @@ app.get('/basic/result', function (req, res, next) {
 	});
 });
 
+app.get('/basic/validateResultData', function (req, res, next) {
+	database.getAllOptions((error, result) => {
+		if (error) {
+			return next(error);
+		}
+
+		res.json(result);
+	})
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

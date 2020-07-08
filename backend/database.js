@@ -44,7 +44,7 @@ function insertOptions(options, callback) {
     });
 };
 
-function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback) {
+function getOptions(companyId, audienceCount, page = 0, pageSize = 20, callback) {
     let whereClause;
     let i = 1;
     const values = [];
@@ -90,13 +90,42 @@ function getBasicComputationInfo(options, callback) {
         client.end();
         if (err) return callback(err, result);
         const { rows } = result;
+        if (rows.length < options.length) return callback({'message': 'one or more', 'status': 400})
         callback(err, rows);
     })
+}
+
+// function getAllOptions(callback) {
+//     const query = 'SELECT * FROM adOptions';
+
+//     const client = connect();
+
+//     client.query(query, [], function (err, result) {
+//         client.end();
+//         if (err) return callback(err, result);
+//         const { rows } = result;
+//         callback(err, rows);
+//     })
+// }
+
+async function getAllOptions() {
+    const query = 'SELECT * FROM adOptions';
+
+    const client = connect();
+
+    try {
+        response = await client.query(query);
+    } catch (error) {
+        throw error;
+    }
+
+    return response;
 }
 
 module.exports = {
     resetTable,
     insertOptions,
     getOptions,
-    getBasicComputationInfo
+    getBasicComputationInfo,
+    getAllOptions,
 }

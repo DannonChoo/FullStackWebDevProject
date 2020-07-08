@@ -1,4 +1,5 @@
 const basicResultUrl = 'http://localhost:3000/basic/result';
+const basicDataForCheck = 'http://localhost:3000/basic/validateResultData';
 
 const basicResultQuery = {
     optionIds: [],
@@ -30,18 +31,71 @@ function getBasicResultFromBackEnd(callback) {
     basicResultQuery['optionIds'] = [];
 }
 
-function refreshBasicResultTable() {
+function getBasicDataFromBackEnd(callback) {
+    $.get(basicDataForCheck, {})
+        .done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
+function refreshBasicResultTable(id) {
+
     getBasicResultFromBackEnd(function (err, data) {
-        if (data.result.length == 0) {
-            return alert('The Option IDs you have inputted do not exist.');
+
+        getBasicDataFromBackEnd(function (err, data) {
+            return new Promise((resolve, reject) => {
+                console.log(id);
+                let data = callback.result
+                let check = null;
+                let checkOptionId = data.map((item, index) => {return item.optionid});
+                let idArray = id.split(',');
+                for (const option of idArray) {
+                    if (checkOptionId.includes(option) == false) {
+                        check = false;
+                    }
+                }
+                resolve(check);
+            })
+        });
+
+        function validateExist(){
+            let idCheck = getBasicDataFromBackEnd();
+            console.log(idCheck);
         }
-
+        
+        if (id.split(",").length < 2) {
+            return alert("Requires at least 2 optionIds");
+        } else if (CheckDuplicates() == true) {
+            return alert('Duplicate Option IDs Found! (Highlighted in Red)');
+        } else if (validateExist() == false) {
+            return alert('Invalid Option ID Found!');
+        }
         console.log("data" + JSON.stringify(data));
-
         if (err) return alert(err);
         populateBasicResultTable(data);
+        
     });
 }
+
+function CheckDuplicates() {
+    let values = [];  //Create array where we'll store values
+
+    $(".duplicate").removeClass("duplicate"); //Clear all duplicates
+    let $inputs = $('input[class="form-control text-center"]'); //Store all inputs 
+    
+    $inputs.each(function() {   //Loop through the inputs
+    
+        let v = this.value;
+        if (!v) return true; //If no value, skip this input
+        
+        //If this value is a duplicate, get all inputs from our list that
+        //have this value, and mark them ALL as duplicates
+        if (values.includes(v)) $inputs.filter(function() { return this.value == v }).addClass("duplicate");
+        
+        values.push(v); //Add the value to our array
+    });
+
+    return $(".duplicate").length > 0;
+};
 
 function compute() {
     let resultArray = [];
@@ -59,12 +113,10 @@ function compute() {
         });
     basicResultQuery['optionIds'] = basicResultQuery['optionIds'].join();
     console.log("array: "+resultArray);
+    console.log("basicResultQuery['optionIds']: "+basicResultQuery['optionIds']);
     console.log("basicResultQuery: "+ JSON.stringify(basicResultQuery));
-    if (resultArray.length < 3) {
-        return alert('Requires at least 2 Option IDs');
-    }
-    
-    refreshBasicResultTable();
+    console.log("length: "+ basicResultQuery['optionIds'].split(",").length);
+    refreshBasicResultTable(basicResultQuery['optionIds']);
     return false;
 }
 
@@ -76,7 +128,7 @@ function addDeleteButton() {
     
     $('#add').click(function () {
         // $('#optionTemplate').empty();
-        let fieldAddHTML = `<div class="form-group text-white text-center" id="field${trackField['counter']}"> <input required type="number" class="form-control text-center" key="optionId" placeholder="Option Id">`;
+        let fieldAddHTML = `<div class="form-group text-white text-center" id="field${trackField['counter']}"> <input required type="number" class="form-control text-center" key="optionId" placeholder="Option Id" onchange=CheckDuplicates()>`;
         fieldAddHTML += `<button type="button" class="btn btn-danger remove" id="remove${trackField['counter']}">Remove</button></div>`;
         $('#options').append(fieldAddHTML);
         trackField['counter']++;
@@ -92,7 +144,7 @@ function addDeleteButton() {
 $(document).ready(function () {
     addDeleteButton();
     registerBasicResultInput();
-    
+    CheckDuplicates();
 });
 
 

@@ -31,3 +31,12 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/basic/result?optionIds=9999999991,9999999992,9999999998&budget=30 HTTP/1.1
 Content-Type: application/json
+
+
+###
+GET http://localhost:3000/basic/validateResultData HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://localhost:3000/basic/asyncdata HTTP/1.1
+Content-Type: application/json
