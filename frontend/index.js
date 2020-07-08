@@ -71,6 +71,9 @@ function refreshBasicDataTable() {
             $('#basic-data-previous-page').show();
             $('#basic-data-next-page').show();
         }
+        if (basicDataQuery['page'] > 0) {
+            $('#basic-data-page-size-select').hide();
+        }
         console.log("total pgs: " + totalPg);
         console.log(basicDataQuery['page']);
         console.log("total rows: " + dataCount);
@@ -114,6 +117,7 @@ function registerBasicDataPaginationForm() {
 $(document).ready(function () {
     registerBasicDataFilterForm();
     registerBasicDataPaginationForm();
+    refreshBasicDataTable();
 });
 
 $(function () {

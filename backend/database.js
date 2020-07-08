@@ -28,9 +28,10 @@ function resetTable() {
     });
 };
 
-function insertOptions(options, callback) {
+async function insertOptions(options) {
     if (options.length == 0) {
-        return callback({'message': 'Cannot Insert Empty Array.', 'status': 400}, []);
+        console.log("empty");
+        throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
     }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++})`).join(',');
@@ -38,13 +39,18 @@ function insertOptions(options, callback) {
     const query = `INSERT INTO adOptions (optionId, companyId, audienceCount, cost) VALUES ${template}`;
 
     const client = connect();
-    client.query(query, values, (err, result) => {
-        callback(err, result);
-        client.end();
-    });
-};
 
-function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback) {
+    try {
+        result = await client.query(query, values);
+        client.end(); 
+        return result;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     let whereClause;
     let i = 1;
     const values = [];
@@ -67,17 +73,22 @@ function getOptions(companyId, audienceCount, page = 0, pageSize = 10, callback)
     const query = `SELECT *, COUNT(*) OVER() AS noOfRows FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
-    client.query(query, values, function (err, result) {
+
+    try {
+        result = await client.query(query, values);
         client.end();
-        if (err) return callback(err, result);
-        const { rows } = result;
-        callback(err, rows);
-    })
+        const {rows} = result;
+        console.log(rows);
+        return rows;
+    }
+    catch (err) {
+        throw err;
+    }
 }
 
-function getBasicComputationInfo(options, callback) {
+async function getBasicComputationInfo(options) {
     if (options.length == 0) {
-        return callback({'message': 'Option ID Array is Empty.', 'status': 400}, []);
+        throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
     }
 
     let optionParams = options.map((item, index) => {return '$' + (index+1)});
@@ -86,17 +97,27 @@ function getBasicComputationInfo(options, callback) {
 
     const client = connect();
 
-    client.query(query, options, function (err, result) {
+    try {
+        result = await client.query(query, options);
         client.end();
-        if (err) return callback(err, result);
         const { rows } = result;
-        callback(err, rows);
-    })
+        if (options.length < 2) {
+            throw {'message': 'Minimum 2 IDs', 'status': 400};
+        }
+        if (rows.length < options.length) {
+            console.log("Id no exist");
+            throw {'message': 'one or more ID(s) does not exists', 'status': 400};
+        }
+        return rows;
+    }
+    catch (err) {
+        throw err;
+    }
 }
 
 module.exports = {
     resetTable,
-    insertOptions,
     getOptions,
-    getBasicComputationInfo
+    getBasicComputationInfo,
+    insertOptions,
 }
