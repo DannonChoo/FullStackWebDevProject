@@ -119,6 +119,7 @@ function registerBasicDataPaginationForm() {
 $(document).ready(function () {
     registerBasicDataFilterForm();
     registerBasicDataPaginationForm();
+    refreshBasicDataTable();
 });
 
 $(function () {
