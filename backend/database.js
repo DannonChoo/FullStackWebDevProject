@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const { options } = require('./app');
 
 const CONNECTION_STRING = 'postgres://ajpxdykx:Jyy5a_QYCGP8nFXjrqP3psDgBuflrm-v@john.db.elephantsql.com:5432/ajpxdykx';
 
@@ -86,8 +87,12 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     }
 }
 
-async function getBasicComputationInfo(options) {
-    if (options.length == 0) {
+async function getBasicComputationInfo(inputOptions) {
+    
+    const options = inputOptions.split(',');
+
+    if (options[0] == '') {
+        console.log('ded');
         throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
     }
 
@@ -101,9 +106,7 @@ async function getBasicComputationInfo(options) {
         result = await client.query(query, options);
         client.end();
         const { rows } = result;
-        if (options.length < 2) {
-            throw {'message': 'Minimum 2 IDs', 'status': 400};
-        }
+       
         if (rows.length < options.length) {
             console.log("Id no exist");
             throw {'message': 'one or more ID(s) does not exists', 'status': 400};

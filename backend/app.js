@@ -49,7 +49,7 @@ app.get('/basic/data', async (req, res, next) => {
 app.get('/basic/result', async (req, res, next) => {
 	let {optionIds, budget} = req.query;
 	try {
-		const result = await database.getBasicComputationInfo(optionIds.split(','));
+		const result = await database.getBasicComputationInfo(optionIds);
 		let bestOptions = computeAlgo.basicComputeBestOption(result, budget);
 		res.json(bestOptions);
 	}

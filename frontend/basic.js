@@ -30,11 +30,13 @@ function getBasicResultFromBackEnd(callback) {
     basicResultQuery['optionIds'] = [];
 }
 
-function refreshBasicResultTable() {
+function refreshBasicResultTable(id) {
     getBasicResultFromBackEnd(function (err, data) {
-        // if (data.length == 0) {
-        //     return alert('Minimum 2 IDs');
-        // }
+
+        if (id.split(",").length < 2) {
+             return alert('Minimum of Two Option IDs Required!');
+        }
+
         if (CheckDuplicates() == true) {
             return alert('Duplicate Option IDs Found! (Highlighted in Red)');
         }
@@ -86,8 +88,6 @@ function compute() {
     console.log("basicResultQuery: "+ JSON.stringify(basicResultQuery));
     console.log("length: "+ basicResultQuery['optionIds'].split(",").length);
 
-
-
     refreshBasicResultTable(basicResultQuery['optionIds']);
     return false;
 }
@@ -119,5 +119,10 @@ $(document).ready(function () {
     CheckDuplicates();
 });
 
-
+$(function () {
+    $(document).scroll(function () {
+        var $nav = $(".navbar");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+    });
+});
 
