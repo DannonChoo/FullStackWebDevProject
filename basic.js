@@ -33,10 +33,6 @@ function getBasicResultFromBackEnd(callback) {
 function refreshBasicResultTable(id) {
     getBasicResultFromBackEnd(function (err, data) {
 
-        if (id.split(",").length < 2) {
-             return alert('Minimum of Two Option IDs Required!');
-        }
-
         if (CheckDuplicates() == true) {
             return alert('Duplicate Option IDs Found! (Highlighted in Red)');
         }

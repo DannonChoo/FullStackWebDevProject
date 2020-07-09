@@ -26,10 +26,9 @@ const basicDataLength = 'http://localhost:3000/basic/dataLength';
 function populateBasicDataTable(data) {
     console.log(data);
     const dataTableHtml = data.map(
-        ({ id, optionid, companyid, audiencecount, cost }) => `
+        ({ optionid, companyid, audiencecount, cost }) => `
             <tr>
-                <th scope="row">${id}</th>
-                <td>${optionid}</td>
+                <th scope="row">${optionid}</th>
                 <td>${companyid}</td>
                 <td>${audiencecount}</td>
                 <td>${cost}</td>
