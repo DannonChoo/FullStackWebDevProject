@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Aysnchronous Insert API
+// basic
 app.post('/basic/insert', async (req, res, next) => {
 	const { data } = req.body;
 	
@@ -49,8 +49,49 @@ app.get('/basic/data', async (req, res, next) => {
 app.get('/basic/result', async (req, res, next) => {
 	let {optionIds, budget} = req.query;
 	try {
-		const result = await database.getBasicComputationInfo(optionIds);
+		const result = await database.getBasicComputationInfo(optionIds, budget);
 		let bestOptions = computeAlgo.basicComputeBestOption(result, budget);
+		res.json(bestOptions);
+	}
+	catch (err) {
+		return next(err);
+	}
+});
+
+//advanced
+app.post('/advance/insert', async (req, res, next) => {
+	const { data } = req.body;
+	
+	try {
+		const result = await database.insertAdvanceOptions(data);
+		
+		const jsonData = {
+			"result" : "success"
+		};
+		
+		res.json(jsonData);
+	}
+	catch (err){
+		return next(err);
+	}
+});
+
+app.get('/advance/data', async (req, res, next) => {
+	let { companyId, audienceCount, cost, page, pageSize } = req.query;
+	try {
+		const result = await database.getAdvanceOptions(companyId, audienceCount, cost, page, pageSize);
+		res.json(result);
+	}
+	catch (err) {
+		return next(err);
+	}
+});
+
+app.get('/advance/result', async (req, res, next) => {
+	let {optionIds, budget} = req.query;
+	try {
+		const result = await database.getAdvanceComputationInfo(optionIds, budget);
+		let bestOptions = computeAlgo.advancedComputeBestOption(result, budget);
 		res.json(bestOptions);
 	}
 	catch (err) {
