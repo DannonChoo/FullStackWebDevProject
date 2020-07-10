@@ -1,5 +1,6 @@
 const { Client } = require('pg');
 const { options } = require('./app');
+const { validateResultAPI } = require('./validation');
 
 const CONNECTION_STRING = 'postgres://ajpxdykx:Jyy5a_QYCGP8nFXjrqP3psDgBuflrm-v@john.db.elephantsql.com:5432/ajpxdykx';
 
@@ -95,20 +96,10 @@ async function getBasicComputationInfo(inputOptions, budget) {
     
     const options = inputOptions.split(',');
 
-    if (budget == '') {
-		throw {'message': 'Please insert a budget', 'status': 400};
-	}
-
-    if (options[0] == '') {
-        throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
-    }
-
-    if (options.length < 2) {
-        throw {'message': 'Minimum of Two Options Required', 'status': 400};
-    }
-
-    if (new Set(options).size !== options.length) {
-        throw {'message': 'Duplicate Values Detected', 'status': 400};
+    const errObject = validateResultAPI(options , budget) 
+    
+    if (errObject) {
+        throw errObject;
     }
 
     let optionParams = options.map((item, index) => {return '$' + (index+1)});
@@ -200,21 +191,11 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
 async function getAdvanceComputationInfo(inputOptions, budget) {
     
     const options = inputOptions.split(',');
-
-    if (budget == '') {
-		throw {'message': 'Please insert a budget', 'status': 400};
-	}
-
-    if (options[0] == '') {
-        throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
-    }
-
-    if (options.length < 2) {
-        throw {'message': 'Minimum of Two Options Required', 'status': 400};
-    }
-
-    if (new Set(options).size !== options.length) {
-        throw {'message': 'Duplicate Values Detected', 'status': 400};
+    
+    const errObject = validateResultAPI(options , budget) 
+    
+    if (errObject) {
+        throw errObject;
     }
     
     let optionParams = options.map((item, index) => {return '$' + (index+1)});
