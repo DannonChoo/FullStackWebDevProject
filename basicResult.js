@@ -71,10 +71,10 @@ function compute() {
         .each((_, input) => {
             console.log($(input).val());
             if ($(input).attr('key') == 'optionId') {
-                basicResultQuery['optionIds'].push(parseInt($(input).val()));
+                basicResultQuery['optionIds'].push($(input).val());
             }
             else if ($(input).attr('key') == 'budget'){
-                basicResultQuery['budget'] = parseInt($(input).val());
+                basicResultQuery['budget'] = $(input).val();
             }
             resultArray.push($(input).val());
         });
