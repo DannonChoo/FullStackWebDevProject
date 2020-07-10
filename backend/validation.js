@@ -9,7 +9,7 @@ function validateResultAPI (options, budget) {
 	}
 
     if (options[0] == '') {
-        return {'message': 'Pwease insert option id.', 'status': 400};
+        return {'message': 'Please insert option id.', 'status': 400};
     }
 
     if (options.length < 2) {
