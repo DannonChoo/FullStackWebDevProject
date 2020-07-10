@@ -1,7 +1,7 @@
 function basicComputeBestOption (options, budget) {
     let sortedOptions = options.sort((a, b)=> b.audiencecount / b.cost - a.audiencecount / a.cost);
     
-    let remainingBudget = budget;
+    let remainingBudget = parseInt(budget);
     let audienceReached = 0;
     const bestOptions = [];
   
@@ -23,7 +23,7 @@ function basicComputeBestOption (options, budget) {
 function advancedComputeBestOption (options, budget) {
     let sortedOptions = options.sort((a, b) => b.audiencecount / b.cost - a.audiencecount / a.cost);
 
-    let remainingBudget = budget;
+    let remainingBudget = parseInt(budget);
     const bestOptions = [];
 
     for (const option of sortedOptions) {

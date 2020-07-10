@@ -210,7 +210,7 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
         const { rows } = result;
         if (rows.length < options.length) {
             console.log("Id no exist");
-            throw {'message': 'one or more ID(s) does not exists', 'status': 400};
+            throw {'message': 'One or more ID(s) does not exist. Please re-enter with a valid Option ID.', 'status': 400};
         }
         return rows;
     }
