@@ -289,11 +289,11 @@ GET http://localhost:3000/advance/result?optionIds=&budget= HTTP/1.1
 Content-Type: application/json
 
 ### Check if id is entered
-GET http://localhost:3000/advance/result?optionIds=NaN,NaN&budget=4 HTTP/1.1
+GET http://localhost:3000/advance/result?optionIds=&budget=4 HTTP/1.1
 Content-Type: application/json
 
 ### Check if budget is entered
-GET http://localhost:3000/advance/result?optionIds=1000000013,1000000014,1000000015,1000000016&budget=NaN HTTP/1.1
+GET http://localhost:3000/advance/result?optionIds=1000000013,1000000014,1000000015,1000000016&budget= HTTP/1.1
 Content-Type: application/json
 
 ### Check if at least 2 ids are entered
