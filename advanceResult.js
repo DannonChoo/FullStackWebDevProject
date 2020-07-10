@@ -1,4 +1,4 @@
-const basicResultUrl = 'http://localhost:3000/basic/result';
+const basicResultUrl = 'http://localhost:3000/advance/result';
 
 const basicResultQuery = {
     optionIds: [],
@@ -37,7 +37,7 @@ function refreshBasicResultTable(id) {
             return alert('Duplicate Option IDs Found! (Highlighted in Red)');
         }
         console.log("data" + JSON.stringify(data));
-        if (err) return alert(JSON.stringify(err.responseJSON.error));
+        if (err) return alert(err.responseJSON.error);
         populateBasicResultTable(data);
         
     });
