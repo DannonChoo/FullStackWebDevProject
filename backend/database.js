@@ -35,7 +35,7 @@ function resetTable() {
 async function insertOptions(options) {
     if (options.length == 0) {
         console.log("empty");
-        throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
+        throw { 'message': 'Cannot Insert Empty Array.', 'status': 400 };
     }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
@@ -46,7 +46,7 @@ async function insertOptions(options) {
 
     try {
         result = await client.query(query, values);
-        client.end(); 
+        client.end();
         return result;
     }
     catch (err) {
@@ -77,13 +77,13 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     const query = `SELECT *, COUNT(*) OVER() AS noOfRows FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     console.log(query);
-    
+
     const client = connect();
 
     try {
         result = await client.query(query, values);
         client.end();
-        const {rows} = result;
+        const { rows } = result;
         console.log(rows);
         return rows;
     }
@@ -93,16 +93,16 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
 }
 
 async function getBasicComputationInfo(inputOptions, budget) {
-    
+
     const options = inputOptions.split(',');
 
-    const errObject = validateResultAPI(options , budget);
-    
+    const errObject = validateResultAPI(options, budget);
+
     if (errObject) {
         throw errObject;
     }
 
-    let optionParams = options.map((item, index) => {return '$' + (index+1)});
+    let optionParams = options.map((item, index) => { return '$' + (index + 1) });
 
     const query = 'SELECT optionid, cost, audiencecount FROM adOptions WHERE optionType = 0 AND optionid IN (' + optionParams.join(',') + ')';
 
@@ -114,7 +114,7 @@ async function getBasicComputationInfo(inputOptions, budget) {
         const { rows } = result;
         if (rows.length < options.length) {
             console.log("Id no exist");
-            throw {'message': 'one or more ID(s) does not exists', 'status': 400};
+            throw { 'message': 'one or more ID(s) does not exists', 'status': 400 };
         }
         return rows;
     }
@@ -127,7 +127,7 @@ async function getBasicComputationInfo(inputOptions, budget) {
 async function insertAdvanceOptions(options) {
     if (options.length == 0) {
         console.log("empty");
-        throw {'message': 'Cannot Insert Empty Array.', 'status': 400};
+        throw { 'message': 'Cannot Insert Empty Array.', 'status': 400 };
     }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
@@ -138,7 +138,7 @@ async function insertAdvanceOptions(options) {
 
     try {
         result = await client.query(query, values);
-        client.end(); 
+        client.end();
         return result;
     }
     catch (err) {
@@ -173,13 +173,13 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
     const query = `SELECT *, COUNT(*) OVER() AS noOfRows FROM adOptions ${whereClause} ${limitOffsetClause}`;
 
     console.log(query);
-    
+
     const client = connect();
 
     try {
         result = await client.query(query, values);
         client.end();
-        const {rows} = result;
+        const { rows } = result;
         console.log(rows);
         return rows;
     }
@@ -189,16 +189,16 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
 }
 
 async function getAdvanceComputationInfo(inputOptions, budget) {
-    
+
     const options = inputOptions.split(',');
-    
-    const errObject = validateResultAPI(options , budget);
-    
+
+    const errObject = validateResultAPI(options, budget);
+
     if (errObject) {
         throw errObject;
     }
-    
-    let optionParams = options.map((item, index) => {return '$' + (index+1)});
+
+    let optionParams = options.map((item, index) => { return '$' + (index + 1) });
 
     const query = 'SELECT optionid, cost, audiencecount FROM adOptions WHERE optionType = 1 AND optionid IN (' + optionParams.join(',') + ')';
 
@@ -210,7 +210,7 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
         const { rows } = result;
         if (rows.length < options.length) {
             console.log("Id no exist");
-            throw {'message': 'One or more ID(s) does not exist. Please re-enter with a valid Option ID.', 'status': 400};
+            throw { 'message': 'One or more ID(s) does not exist. Please re-enter with a valid Option ID.', 'status': 400 };
         }
         return rows;
     }
