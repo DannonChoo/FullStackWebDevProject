@@ -1,4 +1,4 @@
-const basicDataQuery = {
+const advanceDataQuery = {
     companyId: null,
     audienceCount: null,
     cost: null,
@@ -6,24 +6,24 @@ const basicDataQuery = {
     pageSize: 5,
 };
 
-const basicDataPaginationFunction = {
+const advanceDataPaginationFunction = {
     gotoFirstPage: function () {
-        basicDataQuery['page'] = 0;
-        console.log(`PageNo: ${basicDataQuery['page']}`);
+        advanceDataQuery['page'] = 0;
+        console.log(`PageNo: ${advanceDataQuery['page']}`);
     },
     changePage: function (delta) {
-        basicDataQuery['page'] += parseInt(delta);
-        console.log(`PageNo: ${basicDataQuery['page']}`);
+        advanceDataQuery['page'] += parseInt(delta);
+        console.log(`PageNo: ${advanceDataQuery['page']}`);
     },
     changePageSize: function (newPageSize) {
         console.log(newPageSize);
-        basicDataQuery['pageSize'] = newPageSize;
+        advanceDataQuery['pageSize'] = newPageSize;
     }
 };
 
-const basicDataUrl = 'http://localhost:3000/advance/data';
+const advanceDataUrl = 'http://localhost:3000/advance/data';
 
-function populateBasicDataTable(data) {
+function populateAdvanceDataTable(data) {
     console.log(data);
     const dataTableHtml = data.map(
         ({ optionid, companyid, audiencecount, cost }) => `
@@ -35,17 +35,17 @@ function populateBasicDataTable(data) {
             </tr>
     `,
     );
-    $('#basic-data-tbody').html(dataTableHtml);
+    $('#advance-data-tbody').html(dataTableHtml);
 }
 
-function getBasicDataFromBackEnd(callback) {
-    $.get(basicDataUrl, basicDataQuery)
+function getAdvanceDataFromBackEnd(callback) {
+    $.get(advanceDataUrl, advanceDataQuery)
         .done((result) => callback(null, result))
         .fail((message) => callback(message, null));
 }
 
-function refreshBasicDataTable() {
-    getBasicDataFromBackEnd(function (err, data) {
+function refreshAdvanceDataTable() {
+    getAdvanceDataFromBackEnd(function (err, data) {
         if (data.length == 0) {
             return alert('No results');
         }
@@ -54,71 +54,71 @@ function refreshBasicDataTable() {
 
         if (err) return alert(err);
         dataCount = parseInt(data[0].noofrows);
-        var totalPg = (Math.ceil(dataCount / basicDataQuery['pageSize'])) - 1;
-        if (basicDataQuery['page'] == 0) {
-            if (dataCount <= basicDataQuery['pageSize']) {
-                $('#basic-data-previous-page').hide();
-                $('#basic-data-next-page').hide();
+        var totalPg = (Math.ceil(dataCount / advanceDataQuery['pageSize'])) - 1;
+        if (advanceDataQuery['page'] == 0) {
+            if (dataCount <= advanceDataQuery['pageSize']) {
+                $('#advance-data-previous-page').hide();
+                $('#advance-data-next-page').hide();
             } else {
-                $('#basic-data-previous-page').hide();
-                $('#basic-data-next-page').show();
+                $('#advance-data-previous-page').hide();
+                $('#advance-data-next-page').show();
             }
-        } else if (basicDataQuery['page'] == parseInt(totalPg)) {
-            $('#basic-data-previous-page').show();
-            $('#basic-data-next-page').hide();
+        } else if (advanceDataQuery['page'] == parseInt(totalPg)) {
+            $('#advance-data-previous-page').show();
+            $('#advance-data-next-page').hide();
         } else {
-            $('#basic-data-previous-page').show();
-            $('#basic-data-next-page').show();
+            $('#advance-data-previous-page').show();
+            $('#advance-data-next-page').show();
         }
-        if (basicDataQuery['page'] != 0) {
-            $('#basic-data-page-size-select').hide()
+        if (advanceDataQuery['page'] != 0) {
+            $('#advance-data-page-size-select').hide()
         } else {
-            $('#basic-data-page-size-select').show()
+            $('#advance-data-page-size-select').show()
         }
         console.log("total pgs: " + totalPg);
-        console.log(basicDataQuery['page']);
+        console.log(advanceDataQuery['page']);
         console.log("total rows: " + dataCount);
 
         if (err) return alert(err);
-        populateBasicDataTable(data);
+        populateAdvanceDataTable(data);
     });
 }
 
-function filterBasicData(event) {
+function filterAdvanceData(event) {
     // This is for selecting those that are not input type submit.
-    // console.log($('#basic-data-filter-form input').not(':input[type=submit]')); 
-    $('#basic-data-filter-form input')
+    // console.log($('#advance-data-filter-form input').not(':input[type=submit]')); 
+    $('#advance-data-filter-form input')
         .not(':input[type=submit]')
         .each((idx, input) => {
             console.log($(input).val());
-            basicDataQuery[$(input).attr('key')] = $(input).val();
+            advanceDataQuery[$(input).attr('key')] = $(input).val();
         });
-    refreshBasicDataTable();
+    refreshAdvanceDataTable();
     return false;
 }
 
-function registerBasicDataFilterForm() {
-    $('#basic-data-filter-form').submit(filterBasicData);
+function registerAdvanceDataFilterForm() {
+    $('#advance-data-filter-form').submit(filterAdvanceData);
 }
 
-function paginateBasicData(event) {
+function paginateAdvanceData(event) {
     const fn = $(this).attr('fn');
     const value = $(this).attr('value') || $(this).val();
-    basicDataPaginationFunction[fn](value);
-    refreshBasicDataTable();
+    advanceDataPaginationFunction[fn](value);
+    refreshAdvanceDataTable();
 }
 
-function registerBasicDataPaginationForm() {
-    $('#basic-data-first-page').click(paginateBasicData);
-    $('#basic-data-previous-page').click(paginateBasicData);
-    $('#basic-data-next-page').click(paginateBasicData);
-    $('#basic-data-page-size-select').change(paginateBasicData);
+function registerAdvanceDataPaginationForm() {
+    $('#advance-data-first-page').click(paginateAdvanceData);
+    $('#advance-data-previous-page').click(paginateAdvanceData);
+    $('#advance-data-next-page').click(paginateAdvanceData);
+    $('#advance-data-page-size-select').change(paginateAdvanceData);
 }
 
 $(document).ready(function () {
-    registerBasicDataFilterForm();
-    registerBasicDataPaginationForm();
-    refreshBasicDataTable();
+    registerAdvanceDataFilterForm();
+    registerAdvanceDataPaginationForm();
+    refreshAdvanceDataTable();
 });
 
 $(function () {

@@ -11,7 +11,7 @@ const trackField = {
 
 function populateBasicResultTable(data) {
     console.log(data);
-    const dataTableHtml = data.result.map(
+    let dataTableHtml = data.result.options.map(
         ({ optionId, amount, audienceReached }) => `
             <tr>
                 <th scope="row">${optionId}</th>
@@ -20,6 +20,13 @@ function populateBasicResultTable(data) {
             </tr>
     `,
     );
+    dataTableHtml += `
+        <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td>Total Audience: ${data.result.audienceReached}</td>
+        </tr>
+        `
     $('#basic-data-tbody').html(dataTableHtml);
 }
 
@@ -39,7 +46,7 @@ function refreshBasicResultTable(id) {
         console.log("data" + JSON.stringify(data));
         if (err) return alert(err.responseJSON.error);
         populateBasicResultTable(data);
-        
+
     });
 }
 
@@ -48,16 +55,16 @@ function CheckDuplicates() {
 
     $(".duplicate").removeClass("duplicate"); //Clear all duplicates
     let $inputs = $('input[class="form-control text-center"]'); //Store all inputs 
-    
-    $inputs.each(function() {   //Loop through the inputs
-    
+
+    $inputs.each(function () {   //Loop through the inputs
+
         let v = this.value;
         if (!v) return true; //If no value, skip this input
-        
+
         //If this value is a duplicate, get all inputs from our list that
         //have this value, and mark them ALL as duplicates
-        if (values.includes(v)) $inputs.filter(function() { return this.value == v }).addClass("duplicate");
-        
+        if (values.includes(v)) $inputs.filter(function () { return this.value == v }).addClass("duplicate");
+
         values.push(v); //Add the value to our array
     });
 
@@ -73,16 +80,16 @@ function compute() {
             if ($(input).attr('key') == 'optionId') {
                 basicResultQuery['optionIds'].push($(input).val());
             }
-            else if ($(input).attr('key') == 'budget'){
+            else if ($(input).attr('key') == 'budget') {
                 basicResultQuery['budget'] = $(input).val();
             }
             resultArray.push($(input).val());
         });
     basicResultQuery['optionIds'] = basicResultQuery['optionIds'].join();
-    console.log("array: "+resultArray);
-    console.log("basicResultQuery['optionIds']: "+basicResultQuery['optionIds']);
-    console.log("basicResultQuery: "+ JSON.stringify(basicResultQuery));
-    console.log("length: "+ basicResultQuery['optionIds'].split(",").length);
+    console.log("array: " + resultArray);
+    console.log("basicResultQuery['optionIds']: " + basicResultQuery['optionIds']);
+    console.log("basicResultQuery: " + JSON.stringify(basicResultQuery));
+    console.log("length: " + basicResultQuery['optionIds'].split(",").length);
 
     refreshBasicResultTable(basicResultQuery['optionIds']);
     return false;
@@ -93,7 +100,7 @@ function registerBasicResultInput() {
 }
 
 function addDeleteButton() {
-    
+
     $('#add').click(function () {
         // $('#optionTemplate').empty();
         let fieldAddHTML = `<div class="form-group text-white text-center" id="field${trackField['counter']}"> <input required type="number" class="form-control text-center" key="optionId" placeholder="Option Id" onchange=CheckDuplicates()>`;
@@ -102,7 +109,7 @@ function addDeleteButton() {
         trackField['counter']++;
     });
 
-    $('body').on('click', '.remove', (function(event) {
+    $('body').on('click', '.remove', (function (event) {
         deleteField = event.target.id;
         console.log(deleteField);
         $("#" + deleteField).closest('div').remove();

@@ -1,6 +1,6 @@
-const basicResultUrl = 'http://localhost:3000/advance/result';
+const advanceResultUrl = 'http://localhost:3000/advance/result';
 
-const basicResultQuery = {
+const advanceResultQuery = {
     optionIds: [],
     budget: null,
 };
@@ -9,9 +9,9 @@ const trackField = {
     counter: 3,
 };
 
-function populateBasicResultTable(data) {
+function populateAdvanceResultTable(data) {
     console.log(data);
-    const dataTableHtml = data.result.map(
+    let dataTableHtml = data.result.options.map(
         ({ optionId, amount, audienceReached }) => `
             <tr>
                 <th scope="row">${optionId}</th>
@@ -20,26 +20,33 @@ function populateBasicResultTable(data) {
             </tr>
     `,
     );
-    $('#basic-data-tbody').html(dataTableHtml);
+    dataTableHtml += `
+        <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td>Total Audience: ${data.result.audienceReached}</td>
+        </tr>
+        `
+    $('#advance-data-tbody').html(dataTableHtml);
 }
 
-function getBasicResultFromBackEnd(callback) {
-    $.get(basicResultUrl, basicResultQuery)
+function getAdvanceResultFromBackEnd(callback) {
+    $.get(advanceResultUrl, advanceResultQuery)
         .done((result) => callback(null, result))
         .fail((message) => callback(message, null));
-    basicResultQuery['optionIds'] = [];
+    advanceResultQuery['optionIds'] = [];
 }
 
-function refreshBasicResultTable(id) {
-    getBasicResultFromBackEnd(function (err, data) {
+function refreshAdvanceResultTable(id) {
+    getAdvanceResultFromBackEnd(function (err, data) {
 
         if (CheckDuplicates() == true) {
             return alert('Duplicate Option IDs Found! (Highlighted in Red)');
         }
         console.log("data" + JSON.stringify(data));
         if (err) return alert(err.responseJSON.error);
-        populateBasicResultTable(data);
-        
+        populateAdvanceResultTable(data);
+
     });
 }
 
@@ -48,16 +55,16 @@ function CheckDuplicates() {
 
     $(".duplicate").removeClass("duplicate"); //Clear all duplicates
     let $inputs = $('input[class="form-control text-center"]'); //Store all inputs 
-    
-    $inputs.each(function() {   //Loop through the inputs
-    
+
+    $inputs.each(function () {   //Loop through the inputs
+
         let v = this.value;
         if (!v) return true; //If no value, skip this input
-        
+
         //If this value is a duplicate, get all inputs from our list that
         //have this value, and mark them ALL as duplicates
-        if (values.includes(v)) $inputs.filter(function() { return this.value == v }).addClass("duplicate");
-        
+        if (values.includes(v)) $inputs.filter(function () { return this.value == v }).addClass("duplicate");
+
         values.push(v); //Add the value to our array
     });
 
@@ -66,34 +73,34 @@ function CheckDuplicates() {
 
 function compute() {
     let resultArray = [];
-    $('#basic-result-input-form input')
+    $('#advance-result-input-form input')
         .not(':input[type=submit]')
         .each((_, input) => {
             console.log($(input).val());
             if ($(input).attr('key') == 'optionId') {
-                basicResultQuery['optionIds'].push($(input).val());
+                advanceResultQuery['optionIds'].push($(input).val());
             }
-            else if ($(input).attr('key') == 'budget'){
-                basicResultQuery['budget'] = $(input).val();
+            else if ($(input).attr('key') == 'budget') {
+                advanceResultQuery['budget'] = $(input).val();
             }
             resultArray.push($(input).val());
         });
-    basicResultQuery['optionIds'] = basicResultQuery['optionIds'].join();
-    console.log("array: "+resultArray);
-    console.log("basicResultQuery['optionIds']: "+basicResultQuery['optionIds']);
-    console.log("basicResultQuery: "+ JSON.stringify(basicResultQuery));
-    console.log("length: "+ basicResultQuery['optionIds'].split(",").length);
+    advanceResultQuery['optionIds'] = advanceResultQuery['optionIds'].join();
+    console.log("array: " + resultArray);
+    console.log("advanceResultQuery['optionIds']: " + advanceResultQuery['optionIds']);
+    console.log("advanceResultQuery: " + JSON.stringify(advanceResultQuery));
+    console.log("length: " + advanceResultQuery['optionIds'].split(",").length);
 
-    refreshBasicResultTable(basicResultQuery['optionIds']);
+    refreshAdvanceResultTable(advanceResultQuery['optionIds']);
     return false;
 }
 
-function registerBasicResultInput() {
-    $('#basic-result-input-form').submit(compute);
+function registerAdvanceResultInput() {
+    $('#advance-result-input-form').submit(compute);
 }
 
 function addDeleteButton() {
-    
+
     $('#add').click(function () {
         // $('#optionTemplate').empty();
         let fieldAddHTML = `<div class="form-group text-white text-center" id="field${trackField['counter']}"> <input required type="number" class="form-control text-center" key="optionId" placeholder="Option Id" onchange=CheckDuplicates()>`;
@@ -102,7 +109,7 @@ function addDeleteButton() {
         trackField['counter']++;
     });
 
-    $('body').on('click', '.remove', (function(event) {
+    $('body').on('click', '.remove', (function (event) {
         deleteField = event.target.id;
         console.log(deleteField);
         $("#" + deleteField).closest('div').remove();
@@ -111,7 +118,7 @@ function addDeleteButton() {
 
 $(document).ready(function () {
     addDeleteButton();
-    registerBasicResultInput();
+    registerAdvanceResultInput();
     CheckDuplicates();
 });
 

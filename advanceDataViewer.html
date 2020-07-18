@@ -1,4 +1,4 @@
-<html>
+   <html>
 
 <head>
     <title>Adhmmtisement</title>
@@ -12,6 +12,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src='advanceDataViewer.js' type="text/javascript"></script>
+    <script src="toggle.js" defer></script>
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
@@ -35,31 +36,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#about" data-offset="90">About</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Options
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="basicDataViewer.html">Basic</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item active" href="advanceDataViewer.html">Advanced</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="basicDataViewer.html" data-offset="90">Options</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Choosing Your Options
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="basicResult.html">Basic</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="advanceResult.html">Advanced</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="basicResult.html" data-offset="90">Choosing Your Options</a>
                         </li>
-                    </ul>
-                    <ul class="navbar">
-                        <input type="checkbox" checked data-toggle="toggle" data-size="sm">
                     </ul>
                 </div>
             </div>
@@ -69,25 +51,30 @@
 
     <!--Data Viewer-->
     <div class="card">
+        <div class="btn-group col-2" role="group" aria-label="Basic example">
+            <a href="basicDataViewer.html" class="btn btn-light change" role="button">Basic</a>
+            <a href="advanceDataViewer.html" class="btn btn-light change" role="button">Advanced</a>
+        </div>
         <div class="card-body">
-            <form id='basic-data-filter-form' class="col-4 offset-4">
+            <form id='advance-data-filter-form' class="col-4 offset-4">
                 <div>
-                    <h1 class="text-center text-white">Find Your Options</h1>
+                    <h1 class="text-center text-white">Find Your Options (Advanced)</h1>
                 </div>
                 <div class="form-group text-white">
                     <input type="number" class="form-control text-center" key="companyId" placeholder="Company Id">
                 </div>
                 <div class="form-group text-white">
-                    <input type="number" class="form-control text-center" key="audienceCount" placeholder="Audience Count">
+                    <input type="number" class="form-control text-center" key="audienceCount"
+                        placeholder="Audience Count">
                 </div>
                 <div class="form-group text-white">
                     <input type="number" class="form-control text-center" key="cost" placeholder="Cost">
                 </div>
                 <div class="text-center">
-                    <input type="submit" class="btn btn-light">
+                    <input type="submit" class="btn btn-light change">
                 </div>
             </form>
-            <table class="table table-bordered table-hover text-white">
+            <table class="table table-bordered table-hover text-white" id="table">
                 <thead class="text-center">
                     <tr>
                         <th scope="col">OptionId</th>
@@ -96,7 +83,7 @@
                         <th scope="col">Cost</th>
                     </tr>
                 </thead>
-                <tbody id='basic-data-tbody' class="text-center">
+                <tbody id='advance-data-tbody' class="text-center">
                 </tbody>
             </table>
             <div class="form-row">
@@ -104,21 +91,21 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
-                                <a fn="gotoFirstPage" id="basic-data-first-page" class="page-link" href="#">First</a>
+                                <a fn="gotoFirstPage" id="advance-data-first-page" class="page-link" href="#">First</a>
                             </li>
                             <li class="page-item">
-                                <a fn="changePage" value="-1" id="basic-data-previous-page" class="page-link"
+                                <a fn="changePage" value="-1" id="advance-data-previous-page" class="page-link"
                                     href="#">Previous</a>
                             </li>
                             <li class="page-item">
-                                <a fn="changePage" value="1" id="basic-data-next-page" class="page-link"
+                                <a fn="changePage" value="1" id="advance-data-next-page" class="page-link"
                                     href="#">Next</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-1">
-                    <select fn="changePageSize" id="basic-data-page-size-select" class="custom-select">
+                    <select fn="changePageSize" id="advance-data-page-size-select" class="custom-select">
                         <option value="5" selected>5</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
