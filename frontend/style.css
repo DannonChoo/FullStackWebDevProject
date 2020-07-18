@@ -2,16 +2,24 @@ body {
     background: -moz-linear-gradient(45deg, rgba(213, 15, 61, 0.6), rgba(13, 17, 198, 0.69) 100%);
     background: -webkit-linear-gradient(45deg, rgba(213, 15, 61, 0.6), rgba(13, 17, 198, 0.69) 100%);
     background: linear-gradient(to 45deg, rgba(213, 15, 61, 0.6), rgba(13, 17, 198, 0.69) 100%);
+    --accent-color: #BB86FC;
+    --transition-delay: 0.75s;
+    --icon: yellow;
+    transition: var(--transition-delay);
 }
 
+/*nav bar*/
+
 .navbar {
-    box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.5);
 }
 
 .navbar.scrolled {
     background-color: #563e91 !important;
     transition: background-color 200ms linear;
 }
+
+/*table*/
 
 .card {
     background-color: transparent;
@@ -22,7 +30,7 @@ body {
 }
 
 .table {
-    box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.5);
 }
 
 .table td {
@@ -33,6 +41,8 @@ body {
     border: black solid 1px !important;
 }
 
+/*form*/
+
 form input[type="number"] {
     margin-top: 12px;
     margin-bottom: 12px;
@@ -40,4 +50,65 @@ form input[type="number"] {
 
 .duplicate {
     box-shadow: inset 0 0 0 3px red;
+}
+
+/*dark mode*/
+
+.theme-toggle-button {
+    background-color: var(--accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: .5em 1em;
+    border-radius: .3em;
+    border: none;
+    outline: none;
+    transition: var(--transition-delay);
+    transform: scale(1);
+}
+
+.theme-toggle-button .icon {
+    margin-right: .5em;
+}
+
+.theme-toggle-button:hover, .theme-toggle-button:focus {
+    transform: scale(1.1);
+}
+
+body.dark {
+    --icon: #ffffff;
+    background: #333;
+}
+
+.dark .navbar {
+    background-color: #484848;
+    transition: var(--transition-delay);
+}
+
+.dark .navbar a {
+    color: var(--accent-color);
+}
+
+.sun,
+.moon {
+    margin: 8px;
+    fill: var(--icon);
+    transition: opacity, fill, var(--transition-delay);
+}
+
+.sun {
+    opacity: 1;
+}
+
+.dark .sun {
+    opacity: 0;
+}
+
+.moon {
+    opacity: 0;
+}
+
+.dark .moon {
+    opacity: 1;
 }
