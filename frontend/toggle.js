@@ -5,7 +5,7 @@ const enableDarkMode = () => {
     document.body.classList.add('dark');
     localStorage.setItem("dark", "enabled");
     $('#table').addClass(' table-dark');
-    $('.change').removeClass(' btn-light');
+    $('.change').removeClass(' btn-outline-light');
     $('.change').addClass(' btn-secondary');
 }
 
@@ -14,7 +14,7 @@ const enableLightMode = () => {
     localStorage.setItem("dark", null);
     $('#table').removeClass(' table-dark');
     $('.change').removeClass(' btn-secondary');
-    $('.change').addClass(' btn-light');
+    $('.change').addClass(' btn-outline-light');
 }
 
 if (darkMode == "enabled") {

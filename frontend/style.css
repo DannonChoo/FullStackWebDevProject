@@ -19,6 +19,10 @@ body {
     transition: background-color 200ms linear;
 }
 
+.navbar-nav > li > .dropdown-menu { 
+    background-color: violet; 
+}
+
 /*table*/
 
 .card {
@@ -88,6 +92,10 @@ body.dark {
 
 .dark .navbar a {
     color: var(--accent-color);
+}
+
+.dark .navbar-nav > li > .dropdown-menu { 
+    background-color: #484848; 
 }
 
 .sun,
