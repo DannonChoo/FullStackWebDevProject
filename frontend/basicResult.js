@@ -11,7 +11,7 @@ const trackField = {
 
 function populateBasicResultTable(data) {
     console.log(data);
-    let dataTableHtml = data.result.options.map(
+    let dataTableHtml = data.result.map(
         ({ optionId, amount, audienceReached }) => `
             <tr>
                 <th scope="row">${optionId}</th>
@@ -20,11 +20,12 @@ function populateBasicResultTable(data) {
             </tr>
     `,
     );
+    let accumulatedAudience = data.result.reduce( (sum, {audienceReached}) => sum + audienceReached, 0)
     dataTableHtml += `
         <tr>
             <th scope="row"></th>
             <td></td>
-            <td>Total Audience: ${data.result.audienceReached}</td>
+            <td>Total Audience: ${accumulatedAudience}</td>
         </tr>
         `
     $('#basic-data-tbody').html(dataTableHtml);

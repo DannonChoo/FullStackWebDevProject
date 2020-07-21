@@ -11,11 +11,11 @@ function basicComputeBestOption(options, userBudget) {
         remainingBudget -= cost;
         let audienceKeepTrack = ratio * cost;
         audienceReached += audienceKeepTrack;
-        bestOptions.push({ optionId: option.optionid, amount: cost, audienceReached: audienceKeepTrack });
+        bestOptions.push({ optionId: parseInt(option.optionid), amount: cost, audienceReached: audienceKeepTrack });
         if (remainingBudget === 0) break;
     }
 
-    return { 'result': { "options": bestOptions, "audienceReached": audienceReached } };
+    return { 'result': bestOptions };
 }
 
 function advancedComputeBestOption(options, userBudget) {
@@ -65,13 +65,13 @@ function advancedComputeBestOption(options, userBudget) {
             continue;
         }
         else {
-            resultArray.push({ optionId: options[i - 1].optionid, amount: options[i - 1].cost, audienceReached: options[i - 1].audiencecount });
+            resultArray.push({ optionId: parseInt(options[i - 1].optionid), amount: options[i - 1].cost, audienceReached: options[i - 1].audiencecount });
             bestCombi -= audienceReached[i - 1];
             totalWeight -= optionCost[i - 1];
         }
     }
 
-    return { 'result': { 'options': resultArray, 'audienceReached': K[n][budget] } };
+    return { 'result': resultArray };
 }
 
 module.exports = {
