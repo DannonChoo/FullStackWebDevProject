@@ -12,7 +12,7 @@ function connect() {
     return client;
 };
 
-function resetTable() {
+async function resetTable() {
     const client = connect();
     const query = `
         DROP TABLE IF EXISTS adOptions;
@@ -25,10 +25,16 @@ function resetTable() {
             PRIMARY KEY (optionId, optionType)
         );
     `;
-    client.query(query, (err, res) => {
-        console.log(err, res);
+    try {
+        let result = await client.query(query);
+        return result;
+    }
+    catch (err) {
+        throw err;
+    }
+    finally {
         client.end();
-    });
+    }
 };
 
 //basic
@@ -39,18 +45,20 @@ async function insertOptions(options) {
     }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = options.reduce((reduced, option) => [...reduced, option.optionId, option.optionType, option.companyId, option.audienceCount, option.cost], []);
+    const values = options.reduce((reduced, option) => [...reduced, option.optionId, 0, option.companyId, option.audienceCount, option.cost], []);
     const query = `INSERT INTO adOptions (optionId, optionType, companyId, audienceCount, cost) VALUES ${template}`;
 
     const client = connect();
 
     try {
-        result = await client.query(query, values);
-        client.end();
+        let result = await client.query(query, values);
         return result;
     }
     catch (err) {
         throw err;
+    }
+    finally {
+        client.end();
     }
 }
 
@@ -81,8 +89,7 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     const client = connect();
 
     try {
-        result = await client.query(query, values);
-        client.end();
+        let result = await client.query(query, values);
         const { rows } = result;
         console.log(rows);
         return rows;
@@ -90,12 +97,17 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     catch (err) {
         throw err;
     }
+    finally {
+        client.end();
+    }
 }
 
 async function getBasicComputationInfo(inputOptions, budget) {
 
     const options = inputOptions.split(',');
 
+    console.log(options);
+    
     const errObject = validateResultAPI(options, budget);
 
     if (errObject) {
@@ -109,8 +121,7 @@ async function getBasicComputationInfo(inputOptions, budget) {
     const client = connect();
 
     try {
-        result = await client.query(query, options);
-        client.end();
+        let result = await client.query(query, options);
         const { rows } = result;
         if (rows.length < options.length) {
             console.log("Id no exist");
@@ -121,7 +132,11 @@ async function getBasicComputationInfo(inputOptions, budget) {
     catch (err) {
         throw err;
     }
+    finally {
+        client.end();
+    }
 }
+
 
 //advance
 async function insertAdvanceOptions(options) {
@@ -131,18 +146,20 @@ async function insertAdvanceOptions(options) {
     }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = options.reduce((reduced, option) => [...reduced, option.optionId, option.optionType, option.companyId, option.audienceCount, option.cost], []);
+    const values = options.reduce((reduced, option) => [...reduced, option.optionId, 1, option.companyId, option.audienceCount, option.cost], []);
     const query = `INSERT INTO adOptions (optionId, optionType, companyId, audienceCount, cost) VALUES ${template}`;
 
     const client = connect();
 
     try {
-        result = await client.query(query, values);
-        client.end();
+        let result = await client.query(query, values);
         return result;
     }
     catch (err) {
         throw err;
+    }
+    finally {
+        client.end();
     }
 }
 
@@ -177,7 +194,7 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
     const client = connect();
 
     try {
-        result = await client.query(query, values);
+        let result = await client.query(query, values);
         client.end();
         const { rows } = result;
         console.log(rows);
@@ -186,6 +203,9 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
     catch (err) {
         throw err;
     }
+    finally {
+        client.end();
+    }
 }
 
 async function getAdvanceComputationInfo(inputOptions, budget) {
@@ -193,7 +213,7 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
     const options = inputOptions.split(',');
 
     const errObject = validateResultAPI(options, budget);
-
+    
     if (errObject) {
         throw errObject;
     }
@@ -205,8 +225,7 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
     const client = connect();
 
     try {
-        result = await client.query(query, options);
-        client.end();
+        let result = await client.query(query, options);
         const { rows } = result;
         if (rows.length < options.length) {
             console.log("Id no exist");
@@ -216,6 +235,9 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
     }
     catch (err) {
         throw err;
+    }
+    finally {
+        client.end();
     }
 }
 

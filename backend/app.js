@@ -17,6 +17,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//reset
+app.get('/reset', async (req, res, next) => {
+	try {
+		const result = await database.resetTable();
+		const jsonData = {
+			"success": "true"
+		};
+		res.json(jsonData);
+	}
+
+	catch (err) {
+		return next(err);
+	}
+});
+
 // basic
 app.post('/basic/insert', async (req, res, next) => {
 	const { data } = req.body;
