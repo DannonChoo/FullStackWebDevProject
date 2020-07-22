@@ -195,7 +195,6 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
 
     try {
         let result = await client.query(query, values);
-        client.end();
         const { rows } = result;
         console.log(rows);
         return rows;
