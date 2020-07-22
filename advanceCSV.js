@@ -76,6 +76,7 @@ function CheckDuplicates() {
 
 function splitInputs() {
     if (advanceCSVObject['splitClickedCounter'] >= 0) {
+        $('#budget').show();
         $('#submit').show();
     }
 
@@ -97,6 +98,7 @@ function splitInputs() {
         });
     
     if (advanceCSVResultQuery['optionIds'] == "") {
+        $('#budget').hide();
         $('#submit').hide();
         return alert('Please enter the optionIds in CSV format before clicking the split button');
     }
@@ -163,6 +165,7 @@ $(document).ready(function () {
     splitAdvanceCSVResultInput();
     registerAdvanceCSVResultInput();
     CheckDuplicates();
+    $('#budget').hide();
     $('#submit').hide();
 });
 
