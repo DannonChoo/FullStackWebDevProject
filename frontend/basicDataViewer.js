@@ -84,7 +84,7 @@ function refreshBasicDataTable() {
     });
 }
 
-function filterBasicData(event) {
+function filterBasicData() {
     // This is for selecting those that are not input type submit.
     // console.log($('#basic-data-filter-form input').not(':input[type=submit]')); 
     $('#basic-data-filter-form input')

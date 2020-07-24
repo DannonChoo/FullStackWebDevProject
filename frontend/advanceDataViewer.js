@@ -84,7 +84,7 @@ function refreshAdvanceDataTable() {
     });
 }
 
-function filterAdvanceData(event) {
+function filterAdvanceData() {
     // This is for selecting those that are not input type submit.
     // console.log($('#advance-data-filter-form input').not(':input[type=submit]')); 
     $('#advance-data-filter-form input')
@@ -101,7 +101,7 @@ function registerAdvanceDataFilterForm() {
     $('#advance-data-filter-form').submit(filterAdvanceData);
 }
 
-function paginateAdvanceData(event) {
+function paginateAdvanceData() {
     const fn = $(this).attr('fn');
     const value = $(this).attr('value') || $(this).val();
     advanceDataPaginationFunction[fn](value);
