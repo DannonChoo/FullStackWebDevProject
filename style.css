@@ -8,6 +8,14 @@ body {
     transition: var(--transition-delay);
 }
 
+.home {
+    margin-top: 150px;
+}
+
+hr.hr-light {
+    border-top: 1px solid white;
+}
+
 /*nav bar*/
 
 .navbar {
@@ -70,10 +78,6 @@ form input[type="number"] {
     outline: none;
     transition: var(--transition-delay);
     transform: scale(1);
-}
-
-.theme-toggle-button .icon {
-    margin-right: .5em;
 }
 
 .theme-toggle-button:hover, .theme-toggle-button:focus {
