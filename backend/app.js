@@ -4,11 +4,39 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var path = require('path');
 
 const database = require('./database');
 const computeAlgo = require('./backend');
+const csv = require('fast-csv');
+const fs = require('fs');
 
 var app = express();
+
+var multer = require('multer');
+
+//Storage Engine 
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, './public/dataStorage/')
+	},
+	filename: async function (req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+	}
+})
+
+var upload = multer({ 
+	storage: storage,
+	fileFilter: (req, file, cb) => {
+		if (file.mimetype == "text/csv") {
+		  	cb(null, true);
+		} else {
+		  	cb(null, false);
+		  	let err = {'message': 'You did not upload a file with .csv format.', 'status': 400};
+		  	return cb(err);
+		}
+	}
+});
 
 app.use(cors());
 app.use(logger('dev'));
@@ -104,6 +132,80 @@ app.get('/advance/result', async (req, res, next) => {
 		res.json(bestOptions);
 	}
 	catch (err) {
+		return next(err);
+	}
+});
+
+app.post('/basic/uploadComputeCSV', upload.single('inputBasicCSV'), async (req, res, next) => {
+	
+	let {budget} = req.body;
+	let userBudget = budget;
+	const file = req.file;
+	
+	if (!file) {
+		let err = {'message': 'You did not upload a file.', 'status': 400};
+		return next(err);
+	} 
+	
+	const fileRows = [];
+
+	try {
+		csv.parseFile(req.file.path)
+    	.on("data", function (data) {
+      		fileRows.push(...data);
+    	})
+    	.on("end", async function () {
+			try {
+				let optionIds = fileRows.join(',');
+				const result = await database.getBasicComputationInfo(optionIds, userBudget);
+				let bestOptions = computeAlgo.basicComputeBestOption(result, userBudget);
+				res.json(bestOptions);
+			}
+			catch (err) {
+				return next(err);
+			}
+			fs.unlinkSync(req.file.path);  
+		});
+	}
+	
+	catch(err) {
+		return next(err);
+	}
+});
+
+app.post('/advance/uploadComputeCSV', upload.single('inputAdvanceCSV'), async (req, res, next) => {
+	
+	let {budget} = req.body;
+	let userBudget = budget;
+	const file = req.file;
+	
+	if (!file) {
+		let err = {'message': 'You did not upload a file.', 'status': 400};
+		return next(err);
+	} 
+	
+	const fileRows = [];
+
+	try {
+		csv.parseFile(req.file.path)
+    	.on("data", function (data) {
+      		fileRows.push(...data);
+    	})
+    	.on("end", async function () {
+			try {
+				let optionIds = fileRows.join(',');
+				const result = await database.getAdvanceComputationInfo(optionIds, userBudget);
+				let bestOptions = computeAlgo.advancedComputeBestOption(result, userBudget);
+				res.json(bestOptions);
+			}
+			catch (err) {
+				return next(err);
+			}
+			fs.unlinkSync(req.file.path);  
+		});
+	}
+	
+	catch(err) {
 		return next(err);
 	}
 });
