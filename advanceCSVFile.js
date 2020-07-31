@@ -1,4 +1,4 @@
-function populateBasicCSVFileResultTable(data) {
+function populateAdvanceCSVFileResultTable(data) {
     console.log(data);
     let dataTableHtml = data.result.map(
         ({ optionId, amount, audienceReached }) => `
@@ -20,14 +20,14 @@ function populateBasicCSVFileResultTable(data) {
     $('#basic-data-tbody').html(dataTableHtml);
 }
 
-function processBasicCSVFile() {
+function processAdvanceCSVFile() {
     let formData = new FormData();
-    formData.append('inputBasicCSV', $('input[type=file]')[0].files[0]);
+    formData.append('inputAdvanceCSV', $('input[type=file]')[0].files[0]);
     formData.append('budget', $('input[type=number]')[0].valueAsNumber);
     for(var pair of formData.entries()) {
         console.log(pair[0]+', '+pair[1]);
     }
-    fetch('http://localhost:3000/basic/uploadComputeCSV', {
+    fetch('http://localhost:3000/advance/uploadComputeCSV', {
         method: 'POST',
         body: formData
     })  
@@ -39,7 +39,7 @@ function processBasicCSVFile() {
             }
         })
         .then((body) => {
-            populateBasicCSVFileResultTable(body);
+            populateAdvanceCSVFileResultTable(body);
         })
         .catch(err => err.text().then(errorMessage => {
             return alert(JSON.parse(errorMessage).error);
@@ -47,8 +47,8 @@ function processBasicCSVFile() {
     return false;
 }
 
-function submitBasicCSVFile() {
-    $('#basic-result-csv-upload').submit(processBasicCSVFile);
+function submitAdvanceCSVFile() {
+    $('#advance-result-csv-upload').submit(processAdvanceCSVFile);
 }
 
 function fileName(){
@@ -60,7 +60,7 @@ function fileName(){
 
 $(document).ready(function () {
     fileName();
-    submitBasicCSVFile();
+    submitAdvanceCSVFile();
 });
 
 $(function () {
