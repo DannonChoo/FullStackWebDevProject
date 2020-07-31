@@ -38,7 +38,7 @@ function getBasicResultFromBackEnd(callback) {
     basicResultQuery['optionIds'] = [];
 }
 
-function refreshBasicResultTable(id) {
+function refreshBasicResultTable() {
     getBasicResultFromBackEnd(function (err, data) {
 
         if (CheckDuplicates() == true) {

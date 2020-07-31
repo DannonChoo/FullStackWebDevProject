@@ -137,40 +137,46 @@ app.get('/advance/result', async (req, res, next) => {
 });
 
 app.post('/basic/uploadComputeCSV', upload.single('inputBasicCSV'), async (req, res, next) => {
-	
-	let {budget} = req.body;
-	let userBudget = budget;
-	const file = req.file;
-	
-	if (!file) {
-		let err = {'message': 'You did not upload a file.', 'status': 400};
-		return next(err);
-	} 
-	
-	const fileRows = [];
 
-	try {
-		csv.parseFile(req.file.path)
-    	.on("data", function (data) {
-      		fileRows.push(...data);
-    	})
-    	.on("end", async function () {
-			try {
-				let optionIds = fileRows.join(',');
-				const result = await database.getBasicComputationInfo(optionIds, userBudget);
-				let bestOptions = computeAlgo.basicComputeBestOption(result, userBudget);
-				res.json(bestOptions);
-			}
-			catch (err) {
-				return next(err);
-			}
-			fs.unlinkSync(req.file.path);  
-		});
-	}
+	res.json({'success': 'true'})
+	console.log(req);
+	// let {budget} = req.body;
+
+	// console.log(budget);
+
+	// let userBudget = budget;
+
+	// const file = req.file;
 	
-	catch(err) {
-		return next(err);
-	}
+	// if (!file) {
+	// 	let err = {'message': 'You did not upload a file.', 'status': 400};
+	// 	return next(err);
+	// } 
+	
+	// const fileRows = [];
+
+	// try {
+	// 	csv.parseFile(req.file.path)
+    // 	.on("data", function (data) {
+    //   		fileRows.push(...data);
+    // 	})
+    // 	.on("end", async function () {
+	// 		try {
+	// 			let optionIds = fileRows.join(',');
+	// 			const result = await database.getBasicComputationInfo(optionIds, userBudget);
+	// 			let bestOptions = computeAlgo.basicComputeBestOption(result, userBudget);
+	// 			res.json(bestOptions);
+	// 		}
+	// 		catch (err) {
+	// 			return next(err);
+	// 		}
+	// 		fs.unlinkSync(req.file.path);  
+	// 	});
+	// }
+	
+	// catch(err) {
+	// 	return next(err);
+	// }
 });
 
 app.post('/advance/uploadComputeCSV', upload.single('inputAdvanceCSV'), async (req, res, next) => {
