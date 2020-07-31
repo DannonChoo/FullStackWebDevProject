@@ -28,7 +28,7 @@ var storage = multer.diskStorage({
 var upload = multer({ 
 	storage: storage,
 	fileFilter: (req, file, cb) => {
-		if (file.mimetype == "text/csv") {
+		if (file.mimetype == "text/csv" || file.mimetype == "application/vnd.ms-excel") {
 		  	cb(null, true);
 		} else {
 		  	cb(null, false);
@@ -138,45 +138,47 @@ app.get('/advance/result', async (req, res, next) => {
 
 app.post('/basic/uploadComputeCSV', upload.single('inputBasicCSV'), async (req, res, next) => {
 
-	res.json({'success': 'true'})
-	console.log(req);
-	// let {budget} = req.body;
+	let {budget} = req.body;
 
-	// console.log(budget);
+	console.log(budget);
 
-	// let userBudget = budget;
+	let userBudget = parseInt(budget);
 
-	// const file = req.file;
+	const file = req.file;
 	
-	// if (!file) {
-	// 	let err = {'message': 'You did not upload a file.', 'status': 400};
-	// 	return next(err);
-	// } 
+	if (!file) {
+		let err = {'message': 'You did not upload a file.', 'status': 400};
+		return next(err);
+	} 
 	
-	// const fileRows = [];
+	const fileRows = [];
 
-	// try {
-	// 	csv.parseFile(req.file.path)
-    // 	.on("data", function (data) {
-    //   		fileRows.push(...data);
-    // 	})
-    // 	.on("end", async function () {
-	// 		try {
-	// 			let optionIds = fileRows.join(',');
-	// 			const result = await database.getBasicComputationInfo(optionIds, userBudget);
-	// 			let bestOptions = computeAlgo.basicComputeBestOption(result, userBudget);
-	// 			res.json(bestOptions);
-	// 		}
-	// 		catch (err) {
-	// 			return next(err);
-	// 		}
-	// 		fs.unlinkSync(req.file.path);  
-	// 	});
-	// }
+	try {
+		csv.parseFile(req.file.path)
+    	.on("data", function (data) {
+      		fileRows.push(...data);
+    	})
+    	.on("end", async function () {
+			try {
+				let optionIds = fileRows.join(',');
+				const result = await database.getBasicComputationInfo(optionIds, userBudget);
+				let bestOptions = computeAlgo.basicComputeBestOption(result, userBudget);
+				console.log(bestOptions);
+				res.json(bestOptions);
+			}
+			catch (err) {
+				return next(err);
+			}
+		});
+	}
 	
-	// catch(err) {
-	// 	return next(err);
-	// }
+	catch(err) {
+		return next(err);
+	}
+
+	finally {
+		fs.unlinkSync(req.file.path);  
+	}
 });
 
 app.post('/advance/uploadComputeCSV', upload.single('inputAdvanceCSV'), async (req, res, next) => {
@@ -204,10 +206,14 @@ app.post('/advance/uploadComputeCSV', upload.single('inputAdvanceCSV'), async (r
 				let bestOptions = computeAlgo.advancedComputeBestOption(result, userBudget);
 				res.json(bestOptions);
 			}
+
 			catch (err) {
 				return next(err);
 			}
-			fs.unlinkSync(req.file.path);  
+
+			finally {
+				fs.unlinkSync(req.file.path);  
+			}
 		});
 	}
 	
