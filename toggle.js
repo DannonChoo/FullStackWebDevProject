@@ -7,6 +7,8 @@ const enableDarkMode = () => {
     $('#table').addClass(' table-dark');
     $('.change').removeClass(' btn-outline-light');
     $('.change').addClass(' btn-secondary');
+    $('.changeSubmit').addClass(' btn-secondary');
+    $('.changeSubmit').removeClass(' btn-light');
 }
 
 const enableLightMode = () => {
@@ -15,6 +17,8 @@ const enableLightMode = () => {
     $('#table').removeClass(' table-dark');
     $('.change').removeClass(' btn-secondary');
     $('.change').addClass(' btn-outline-light');
+    $('.changeSubmit').addClass(' btn-light');
+    $('.changeSubmit').removeClass(' btn-secondary');
 }
 
 if (darkMode == "enabled") {
