@@ -9,7 +9,7 @@ function populateAdvanceCSVFileResultTable(data) {
             </tr>
     `,
     );
-    let accumulatedAudience = data.result.reduce( (sum, {audienceReached}) => sum + audienceReached, 0)
+    let accumulatedAudience = data.result.reduce((sum, { audienceReached }) => sum + audienceReached, 0)
     dataTableHtml += `
         <tr>
             <th scope="row"></th>
@@ -24,13 +24,13 @@ function processAdvanceCSVFile() {
     let formData = new FormData();
     formData.append('inputAdvanceCSV', $('input[type=file]')[0].files[0]);
     formData.append('budget', $('input[type=number]')[0].valueAsNumber);
-    for(var pair of formData.entries()) {
-        console.log(pair[0]+', '+pair[1]);
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
     }
     fetch('http://localhost:3000/advance/uploadComputeCSV', {
         method: 'POST',
         body: formData
-    })  
+    })
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -51,8 +51,8 @@ function submitAdvanceCSVFile() {
     $('#advance-result-csv-upload').submit(processAdvanceCSVFile);
 }
 
-function fileName(){
-    $('input[type="file"]').change(function(e){
+function fileName() {
+    $('input[type="file"]').change(function (e) {
         var fileName = e.target.files[0].name;
         $("#displayfilename").text(fileName);
     });

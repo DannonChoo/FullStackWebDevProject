@@ -10,9 +10,11 @@ You may refer to the following link to learn more about postgresql schema:
 The following are examples of how you can create a table, replace the examples with your own create statements of all your table.
 ```sql
 CREATE TABLE adOptions (
-	id SERIAL PRIMARY KEY,
-	optionId BIGINT UNIQUE,
-	companyId BIGINT,
-	cost INTEGER
+	optionId BIGINT NOT NULL,
+	optionType INT NOT NULL,
+	companyId BIGINT NOT NULL,
+	audienceCount INTEGER NOT NULL,
+	cost INTEGER NOT NULL,
+	PRIMARY KEY (optionId, optionType)
 );
 ```

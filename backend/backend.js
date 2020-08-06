@@ -60,7 +60,7 @@ function advancedComputeBestOption(options, userBudget) {
         if (bestCombi <= 0) {
             break;
         }
-      
+
         if (bestCombi == K[i - 1][totalWeight]) {
             continue;
         }

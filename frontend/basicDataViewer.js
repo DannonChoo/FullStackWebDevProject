@@ -21,7 +21,6 @@ const basicDataPaginationFunction = {
 };
 
 const basicDataUrl = 'http://localhost:3000/basic/data';
-const basicDataLength = 'http://localhost:3000/basic/dataLength';
 
 function populateBasicDataTable(data) {
     console.log(data);

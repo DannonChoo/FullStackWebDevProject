@@ -107,7 +107,7 @@ async function getBasicComputationInfo(inputOptions, budget) {
     const options = inputOptions.split(',');
 
     console.log(options);
-    
+
     const errObject = validateResultAPI(options, budget);
 
     if (errObject) {
@@ -212,7 +212,7 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
     const options = inputOptions.split(',');
 
     const errObject = validateResultAPI(options, budget);
-    
+
     if (errObject) {
         throw errObject;
     }

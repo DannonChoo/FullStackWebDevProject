@@ -22,7 +22,7 @@ function populateBasicCSVResultTable(data) {
             </tr>
     `,
     );
-    let accumulatedAudience = data.result.reduce( (sum, {audienceReached}) => sum + audienceReached, 0)
+    let accumulatedAudience = data.result.reduce((sum, { audienceReached }) => sum + audienceReached, 0)
     dataTableHtml += `
         <tr>
             <th scope="row"></th>
@@ -80,7 +80,7 @@ function splitInputs() {
         $('#submit').show();
     }
 
-    console.log("counter: "+basicCSVObject['splitCounter']);
+    console.log("counter: " + basicCSVObject['splitCounter']);
 
     if (basicCSVObject['splitCounter'] > 1) {
         $("#split").empty();
@@ -96,26 +96,26 @@ function splitInputs() {
                 console.log(basicCSVResultQuery['optionIds']);
             }
         });
-    
+
     if (basicCSVResultQuery['optionIds'] == "") {
         $('#budget').hide();
         $('#submit').hide();
         return alert('Please enter the optionIds in CSV format before clicking the split button');
     }
     basicCSVObject['optionIdsLength'] = basicCSVResultQuery['optionIds'].split(',').length;
-    
+
     console.log(basicCSVObject['optionIdsLength']);
 
     console.log('CLicked');
     let splitField = '<h3 class="text-center text-white">Splitted User Inputs</h3> ';
-    
+
     let items = basicCSVResultQuery['optionIds'].split(',');
     for (let i = 0; i < basicCSVObject['optionIdsLength']; i++) {
-        
+
         splitField += `<div id="optionTemplate" class="form-group text-white text-center">
         <input required type="number" id="input${i}" class="form-control text-center" key="optionId" placeholder="Option Id" onchange=CheckDuplicates()>
         </div>
-        `    
+        `
     }
 
     $('#split').append(splitField);
@@ -126,7 +126,7 @@ function splitInputs() {
             console.log(input);
             console.log(index);
             console.log(items[index]);
-            $("#input"+[index]).val(items[index]);
+            $("#input" + [index]).val(items[index]);
         });
 
     basicCSVObject['splitCounter']++;
@@ -136,19 +136,19 @@ function splitInputs() {
 
 function computeCSVResult() {
     $('#basic-result-csv-input-form input')
-    .not(':input[type=submit]')
-    .each((_, input) => {
-        console.log($(input).val());
-        if ($(input).attr('key') == 'optionIds') {
-            basicCSVResultQuery['optionIds'] = $(input).val();
-            console.log(basicCSVResultQuery['optionIds']);
-        }
-        else if ($(input).attr('key') == 'budget') {
-            basicCSVResultQuery['budget'] = $('#budget').val();
-            console.log(basicCSVResultQuery['optionIds'])
-            console.log(basicCSVResultQuery['budget'])
-        }
-    });
+        .not(':input[type=submit]')
+        .each((_, input) => {
+            console.log($(input).val());
+            if ($(input).attr('key') == 'optionIds') {
+                basicCSVResultQuery['optionIds'] = $(input).val();
+                console.log(basicCSVResultQuery['optionIds']);
+            }
+            else if ($(input).attr('key') == 'budget') {
+                basicCSVResultQuery['budget'] = $('#budget').val();
+                console.log(basicCSVResultQuery['optionIds'])
+                console.log(basicCSVResultQuery['budget'])
+            }
+        });
     refreshBasicResultTable();
     return false;
 }
