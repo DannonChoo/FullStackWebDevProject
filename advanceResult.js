@@ -20,7 +20,7 @@ function populateAdvanceResultTable(data) {
             </tr>
     `,
     );
-    let accumulatedAudience = data.result.reduce( (sum, {audienceReached}) => sum + audienceReached, 0)
+    let accumulatedAudience = data.result.reduce((sum, { audienceReached }) => sum + audienceReached, 0)
     dataTableHtml += `
         <tr>
             <th scope="row"></th>

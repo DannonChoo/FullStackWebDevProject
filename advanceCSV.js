@@ -22,7 +22,7 @@ function populateAdvanceCSVResultTable(data) {
             </tr>
     `,
     );
-    let accumulatedAudience = data.result.reduce( (sum, {audienceReached}) => sum + audienceReached, 0)
+    let accumulatedAudience = data.result.reduce((sum, { audienceReached }) => sum + audienceReached, 0)
     dataTableHtml += `
         <tr>
             <th scope="row"></th>
@@ -80,7 +80,7 @@ function splitInputs() {
         $('#submit').show();
     }
 
-    console.log("counter: "+advanceCSVObject['splitCounter']);
+    console.log("counter: " + advanceCSVObject['splitCounter']);
 
     if (advanceCSVObject['splitCounter'] > 1) {
         $("#split").empty();
@@ -96,26 +96,26 @@ function splitInputs() {
                 console.log(advanceCSVResultQuery['optionIds']);
             }
         });
-    
+
     if (advanceCSVResultQuery['optionIds'] == "") {
         $('#budget').hide();
         $('#submit').hide();
         return alert('Please enter the optionIds in CSV format before clicking the split button');
     }
     advanceCSVObject['optionIdsLength'] = advanceCSVResultQuery['optionIds'].split(',').length;
-    
+
     console.log(advanceCSVObject['optionIdsLength']);
 
     console.log('CLicked');
     let splitField = '<h3 class="text-center text-white">Splitted User Inputs</h3> ';
-    
+
     let items = advanceCSVResultQuery['optionIds'].split(',');
     for (let i = 0; i < advanceCSVObject['optionIdsLength']; i++) {
-        
+
         splitField += `<div id="optionTemplate" class="form-group text-white text-center">
         <input required type="number" id="input${i}" class="form-control text-center" key="optionId" placeholder="Option Id" onchange=CheckDuplicates()>
         </div>
-        `    
+        `
     }
 
     $('#split').append(splitField);
@@ -126,7 +126,7 @@ function splitInputs() {
             console.log(input);
             console.log(index);
             console.log(items[index]);
-            $("#input"+[index]).val(items[index]);
+            $("#input" + [index]).val(items[index]);
         });
 
     advanceCSVObject['splitCounter']++;
@@ -136,19 +136,19 @@ function splitInputs() {
 
 function computeCSVResult() {
     $('#advance-result-csv-input-form input')
-    .not(':input[type=submit]')
-    .each((_, input) => {
-        console.log($(input).val());
-        if ($(input).attr('key') == 'optionIds') {
-            advanceCSVResultQuery['optionIds'] = $(input).val();
-            console.log(advanceCSVResultQuery['optionIds']);
-        }
-        else if ($(input).attr('key') == 'budget') {
-            advanceCSVResultQuery['budget'] = $('#budget').val();
-            console.log(advanceCSVResultQuery['optionIds'])
-            console.log(advanceCSVResultQuery['budget'])
-        }
-    });
+        .not(':input[type=submit]')
+        .each((_, input) => {
+            console.log($(input).val());
+            if ($(input).attr('key') == 'optionIds') {
+                advanceCSVResultQuery['optionIds'] = $(input).val();
+                console.log(advanceCSVResultQuery['optionIds']);
+            }
+            else if ($(input).attr('key') == 'budget') {
+                advanceCSVResultQuery['budget'] = $('#budget').val();
+                console.log(advanceCSVResultQuery['optionIds'])
+                console.log(advanceCSVResultQuery['budget'])
+            }
+        });
     refreshAdvanceResultTable();
     return false;
 }
