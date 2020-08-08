@@ -38,14 +38,15 @@ async function resetTable() {
 };
 
 //basic
-async function insertOptions(options) {
+async function insertOptions(options, optionType) {
+    console.log(optionType);
     if (options.length == 0) {
         console.log("empty");
         throw { 'message': 'Cannot Insert Empty Array.', 'status': 400 };
     }
     let i = 1;
     const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = options.reduce((reduced, option) => [...reduced, option.optionId, 0, option.companyId, option.audienceCount, option.cost], []);
+    const values = options.reduce((reduced, option) => [...reduced, option.optionId, optionType, option.companyId, option.audienceCount, option.cost], []);
     const query = `INSERT INTO adOptions (optionId, optionType, companyId, audienceCount, cost) VALUES ${template}`;
 
     const client = connect();
@@ -128,32 +129,6 @@ async function getBasicComputationInfo(inputOptions, budget) {
             throw { 'message': 'one or more ID(s) does not exists', 'status': 400 };
         }
         return rows;
-    }
-    catch (err) {
-        throw err;
-    }
-    finally {
-        client.end();
-    }
-}
-
-
-//advance
-async function insertAdvanceOptions(options) {
-    if (options.length == 0) {
-        console.log("empty");
-        throw { 'message': 'Cannot Insert Empty Array.', 'status': 400 };
-    }
-    let i = 1;
-    const template = options.map((option) => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = options.reduce((reduced, option) => [...reduced, option.optionId, 1, option.companyId, option.audienceCount, option.cost], []);
-    const query = `INSERT INTO adOptions (optionId, optionType, companyId, audienceCount, cost) VALUES ${template}`;
-
-    const client = connect();
-
-    try {
-        let result = await client.query(query, values);
-        return result;
     }
     catch (err) {
         throw err;
@@ -247,5 +222,4 @@ module.exports = {
     insertOptions,
     getAdvanceComputationInfo,
     getAdvanceOptions,
-    insertAdvanceOptions,
 }

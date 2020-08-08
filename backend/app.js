@@ -60,11 +60,13 @@ app.get('/reset', async (req, res, next) => {
 	}
 });
 
-// basic
+// insert for basic API
 app.post('/basic/insert', async (req, res, next) => {
 	const { data } = req.body;
+	const optionType = 0;
+	console.log(optionType);
 	try {
-		const result = await database.insertOptions(data);
+		const result = await database.insertOptions(data, optionType);
 		const jsonData = {
 			"result": "success"
 		};
@@ -73,7 +75,7 @@ app.post('/basic/insert', async (req, res, next) => {
 	catch (err) {
 		return next(err);
 	}
-});
+})
 
 app.get('/basic/data', async (req, res, next) => {
 	let { companyId, audienceCount, page, pageSize } = req.query;
@@ -98,11 +100,13 @@ app.get('/basic/result', async (req, res, next) => {
 	}
 });
 
-//advanced
+// insert for advance API
 app.post('/advance/insert', async (req, res, next) => {
 	const { data } = req.body;
+	const optionType = 1;
+	console.log(optionType);
 	try {
-		const result = await database.insertAdvanceOptions(data);
+		const result = await database.insertOptions(data, optionType);
 		const jsonData = {
 			"result": "success"
 		};
@@ -111,7 +115,7 @@ app.post('/advance/insert', async (req, res, next) => {
 	catch (err) {
 		return next(err);
 	}
-});
+})
 
 app.get('/advance/data', async (req, res, next) => {
 	let { companyId, audienceCount, cost, page, pageSize } = req.query;

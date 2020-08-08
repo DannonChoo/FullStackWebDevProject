@@ -17,6 +17,7 @@ const advanceDataPaginationFunction = {
     },
     changePageSize: function (newPageSize) {
         console.log(newPageSize);
+        advanceDataQuery['page'] = 0;
         advanceDataQuery['pageSize'] = newPageSize;
     }
 };
@@ -70,11 +71,7 @@ function refreshAdvanceDataTable() {
             $('#advance-data-previous-page').show();
             $('#advance-data-next-page').show();
         }
-        if (advanceDataQuery['page'] != 0) {
-            $('#advance-data-page-size-select').hide()
-        } else {
-            $('#advance-data-page-size-select').show()
-        }
+        
         console.log("total pgs: " + totalPg);
         console.log(advanceDataQuery['page']);
         console.log("total rows: " + dataCount);
@@ -93,6 +90,8 @@ function filterAdvanceData() {
             console.log($(input).val());
             advanceDataQuery[$(input).attr('key')] = $(input).val();
         });
+    advanceDataQuery['page'] = 0;
+    advanceDataQuery['pageSize'] = 5;
     refreshAdvanceDataTable();
     return false;
 }
