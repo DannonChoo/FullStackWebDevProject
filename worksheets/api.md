@@ -15,37 +15,24 @@ Each API should include
 
 > Errors and it's corresponding code can be defined by yourself. You need not follow HTTP errors.
 
-## Get Basic Data
+## Reset Table
 
 | attribute   | value       |
 | ----------- | ----------- |
 | HTTP Method | GET         |
-| Endpoint    | /basic/data |
+| Endpoint    | /reset      |
 
 ### Parameters
 
 | parameter     | datatype        | example   |
 | ------------- | --------------- | --------- |
-| companyId     | 10 digit number | 123456789 |
-| audienceCount |     INTEGER     |   10000   |
-| page          |     INTEGER     |     1     |
-| pageSize      |     INTEGER     |     5     |
-
+| Not Applicable     | Not Applicable  | Not Applicable  |
 
 ### Response Body
 
 ```json
 { 
-    "result": [
-        {
-            "optionid": IDENTIFIER,
-            "optiontype": number,
-            "companyid": IDENTIFIER,
-            "audiencecount": number,
-            "cost": number,
-            "noofrows": string
-        }
-    ]
+    "result": string
 }
 ```
 
@@ -61,97 +48,14 @@ Each API should include
 ### Sample Request
 
 ```http
-GET /basic/data?companyId=1111111111&page=1&pageSize=1
+GET /reset
 ```
 
 ### Sample Response
-
-```json
-{
-    "result": [
-        {
-            "optionid": "1111111112",
-            "optiontype": 0,
-            "companyid": "1111111111",
-            "audiencecount": 1000,
-            "cost": 100,
-            "noofrows": "2"
-        }
-    ]
-}
-```
-
-### Sample Error
-
-```json
-{
-    "error": "invalid input syntax for integer: \"NaN\"",
-    "code": 500
-}
-```
-
-## Get Advance Data
-| attribute   | value       |
-| ----------- | ----------- |
-| HTTP Method | GET         |
-| Endpoint    | /advance/data |
-
-### Parameters
-
-| parameter     | datatype        | example   |
-| ------------- | --------------- | --------- |
-| companyId     | 10 digit number | 123456789 |
-| audienceCount |     INTEGER     |   10000   |
-| page          |     INTEGER     |     1     |
-| pageSize      |     INTEGER     |     5     |
-
-
-### Response Body
 
 ```json
 { 
-    "result": [
-        {
-            "optionid": IDENTIFIER,
-            "optiontype": number,
-            "companyid": IDENTIFIER,
-            "audiencecount": number,
-            "cost": number,
-            "noofrows": string
-        }
-    ]
-}
-```
-
-### Error
-
-```json
-{
-	"error": string,
-	"code": number
-}
-```
-
-### Sample Request
-
-```http
-GET /advance/data?companyId=1111111111&page=1&pageSize=1
-```
-
-### Sample Response
-
-```json
-{
-    "result": [
-        {
-            "optionid": "1111111112",
-            "optiontype": 1,
-            "companyid": "1111111111",
-            "audiencecount": 1000,
-            "cost": 100,
-            "noofrows": "2"
-        }
-    ]
+    "result": "success"
 }
 ```
 
@@ -159,11 +63,10 @@ GET /advance/data?companyId=1111111111&page=1&pageSize=1
 
 ```json
 {
-    "error": "invalid input syntax for integer: \"NaN\"",
+    "error": "relation \"adoptions\" already exists",
     "code": 500
 }
 ```
-
 
 ## Post Basic Data
 
@@ -176,9 +79,9 @@ GET /advance/data?companyId=1111111111&page=1&pageSize=1
 
 | parameter     | datatype        | example   |
 | ------------- | --------------- | --------- |
-| optionId      | 10 digit number | 123456789 |
-| optionType    |  1 digit number | 123456789 |
-| companyId     | 10 digit number | 123456789 |
+| optionId      |      BIGINT     | 123456789 |
+| optionType    |        INT      |     0     |
+| companyId     |      BIGINT     | 123456789 |
 | audienceCount |     INTEGER     |   1500    |
 | cost          |     INTEGER     |    200    |
 
@@ -254,7 +157,7 @@ POST /basic/insert
 }
 ```
 
-## Post Advance Data
+## Post Advanced Data
 
 | attribute   | value       |
 | ----------- | ----------- |
@@ -265,9 +168,9 @@ POST /basic/insert
 
 | parameter     | datatype        | example   |
 | ------------- | --------------- | --------- |
-| optionId      | 10 digit number | 123456789 |
-| optionType    |  1 digit number | 123456789 |
-| companyId     | 10 digit number | 123456789 |
+| optionId      |      BIGINT     | 123456789 |
+| optionType    |        INT      |     0     |
+| companyId     |      BIGINT     | 123456789 |
 | audienceCount |     INTEGER     |   1500    |
 | cost          |     INTEGER     |    200    |
 
@@ -307,7 +210,7 @@ POST /basic/insert
 ### Sample Request
 
 ```http
-POST /advance/insert
+POST /basic/insert
 ```
 
 ### Sample Request Body
@@ -317,7 +220,7 @@ POST /advance/insert
     "data": [
         {
             "optionId": 1000000001,
-            "optionType": 0,
+            "optionType": 1,
             "companyId": 1100000001,
             "audienceCount": 1,
             "cost": 1
@@ -343,6 +246,154 @@ POST /advance/insert
 }
 ```
 
+## Get Basic Data
+
+| attribute   | value       |
+| ----------- | ----------- |
+| HTTP Method | GET         |
+| Endpoint    | /basic/data |
+
+### Parameters
+
+| parameter     | datatype        | example   |
+| ------------- | --------------- | --------- |
+| companyId     |      BIGINT     | 123456789 |
+| audienceCount |     INTEGER     |   10000   |
+| page          |     INTEGER     |     1     |
+| pageSize      |     INTEGER     |     5     |
+
+
+### Response Body
+
+```json
+{ 
+    "result": [
+        {
+            "optionid": IDENTIFIER,
+            "optiontype": number,
+            "companyid": IDENTIFIER,
+            "audiencecount": number,
+            "cost": number,
+            "noofrows": string
+        }
+    ]
+}
+```
+
+### Error
+
+```json
+{
+	"error": string,
+	"code": number
+}
+```
+
+### Sample Request
+
+```http
+GET /basic/data?companyId=1111111111&page=1&pageSize=1
+```
+
+### Sample Response
+
+```json
+{
+    "result": [
+        {
+            "optionid": "1111111112",
+            "optiontype": 0,
+            "companyid": "1111111111",
+            "audiencecount": 1000,
+            "cost": 100,
+            "noofrows": "2"
+        }
+    ]
+}
+```
+
+### Sample Error
+
+```json
+{
+    "error": "invalid input syntax for integer: \"NaN\"",
+    "code": 500
+}
+```
+
+## Get Advance Data
+| attribute   | value       |
+| ----------- | ----------- |
+| HTTP Method | GET         |
+| Endpoint    | /advance/data |
+
+### Parameters
+
+| parameter     | datatype        | example   |
+| ------------- | --------------- | --------- |
+| companyId     |      BIGINT     | 123456789 |
+| audienceCount |     INTEGER     |   10000   |
+| page          |     INTEGER     |     1     |
+| pageSize      |     INTEGER     |     5     |
+
+
+### Response Body
+
+```json
+{ 
+    "result": [
+        {
+            "optionid": IDENTIFIER,
+            "optiontype": number,
+            "companyid": IDENTIFIER,
+            "audiencecount": number,
+            "cost": number,
+            "noofrows": string
+        }
+    ]
+}
+```
+
+### Error
+
+```json
+{
+	"error": string,
+	"code": number
+}
+```
+
+### Sample Request
+
+```http
+GET /advance/data?companyId=1111111111&page=1&pageSize=1
+```
+
+### Sample Response
+
+```json
+{
+    "result": [
+        {
+            "optionid": "1111111112",
+            "optiontype": 1,
+            "companyid": "1111111111",
+            "audiencecount": 1000,
+            "cost": 100,
+            "noofrows": "2"
+        }
+    ]
+}
+```
+
+### Sample Error
+
+```json
+{
+    "error": "invalid input syntax for integer: \"NaN\"",
+    "code": 500
+}
+```
 
 ## Get Basic Result
 
@@ -355,7 +406,7 @@ POST /advance/insert
 
 | parameter     | datatype        | example   |
 | ------------- | --------------- | --------- |
-| optionId      | 10 digit number | 123456789 |
+| optionId      |      BIGINT     | 123456789 |
 | budget        |     INTEGER     |     50    |
 
 
@@ -424,7 +475,7 @@ GET /basic/result?optionIds=1000000001,1000000002&budget=1
 
 | parameter     | datatype        | example   |
 | ------------- | --------------- | --------- |
-| optionId      | 10 digit number | 123456789 |
+| optionId      |      BIGINT     | 123456789 |
 | budget        |     INTEGER     |     50    |
 
 
@@ -481,24 +532,20 @@ GET /basic/result?optionIds=9000000001,9000000002&budget=2
 }
 ```
 
-
-
-## Get Basic Result CSV
+## POST Basic Result CSV
 
 | attribute   | value       |
 | ----------- | ----------- |
-| HTTP Method | GET         |
+| HTTP Method | POST        |
 | Endpoint    | /basic/uploadComputeCSV |
 
 ### Parameters
 
-| parameter     | datatype        | example   |
-| ------------- | --------------- | --------- |
-| optionId      | 10 digit number | 123456789 |
-| budget        |     INTEGER     |     50    |
+| parameter     | datatype                                   | example   |
+| ------------- | ---------------                            | --------- |
+| inputBasicCSV |      text/csv, application/vnd.ms-excel    | sample.csv|
+| budget        |                 INTEGER                    |     50    |
 (Requires File Upload)
-
-
 
 ### Response Body
 
@@ -526,7 +573,7 @@ GET /basic/result?optionIds=9000000001,9000000002&budget=2
 ### Sample Request
 
 ```http
-GET /basic/uploadComputeCSV
+POST /basic/uploadComputeCSV
 (Requires File Upload)
 ```
 
@@ -554,19 +601,19 @@ GET /basic/uploadComputeCSV
 ```
 
 
-## Get Advance Result CSV
+## POST Advance Result CSV
 
 | attribute   | value       |
 | ----------- | ----------- |
-| HTTP Method | GET         |
+| HTTP Method | POST        |
 | Endpoint    | /advance/uploadComputeCSV |
 
 ### Parameters
 
-| parameter     | datatype        | example   |
-| ------------- | --------------- | --------- |
-| optionId      | 10 digit number | 123456789 |
-| budget        |     INTEGER     |     50    |
+| parameter       | datatype                                   | example   |
+| -------------   | ---------------                            | --------- |
+| inputAdvanceCSV |      text/csv, application/vnd.ms-excel    | sample.csv|
+| budget          |                 INTEGER                    |     50    |
 (Requires File Upload)
 
 
@@ -597,7 +644,7 @@ GET /basic/uploadComputeCSV
 ### Sample Request
 
 ```http
-GET /advance/uploadComputeCSV
+POST /advance/uploadComputeCSV
 (Requires File Upload)
 ```
 
@@ -623,57 +670,3 @@ GET /advance/uploadComputeCSV
     "code": 400
 }
 ```
-
-## Reset Table
-
-| attribute   | value       |
-| ----------- | ----------- |
-| HTTP Method | GET         |
-| Endpoint    | /reset      |
-
-### Parameters
-
-| parameter     |
-| ------------- |
-
-
-### Response Body
-
-```json
-{ 
-    "success": "true"
-}
-```
-
-### Error
-
-```json
-{
-	"error": string,
-	"code": number
-}
-```
-
-### Sample Request
-
-```http
-GET /reset
-```
-
-### Sample Response
-
-```json
-{ 
-    "success": "true"
-}
-```
-
-### Sample Error
-
-```json
-{
-    "error": "Internal Server Error",
-    "code": 500
-}
-```
-

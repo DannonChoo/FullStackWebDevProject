@@ -50,7 +50,7 @@ app.get('/reset', async (req, res, next) => {
 	try {
 		const result = await database.resetTable();
 		const jsonData = {
-			"success": "true"
+			"result": "success"
 		};
 		res.json(jsonData);
 	}
