@@ -16,6 +16,7 @@ const basicDataPaginationFunction = {
     },
     changePageSize: function (newPageSize) {
         console.log(newPageSize);
+        basicDataQuery['page'] = 0;
         basicDataQuery['pageSize'] = newPageSize;
     }
 };
@@ -69,11 +70,7 @@ function refreshBasicDataTable() {
             $('#basic-data-previous-page').show();
             $('#basic-data-next-page').show();
         }
-        if (basicDataQuery['page'] != 0) {
-            $('#basic-data-page-size-select').hide()
-        } else {
-            $('#basic-data-page-size-select').show()
-        }
+        
         console.log("total pgs: " + totalPg);
         console.log(basicDataQuery['page']);
         console.log("total rows: " + dataCount);
@@ -92,6 +89,8 @@ function filterBasicData() {
             console.log($(input).val());
             basicDataQuery[$(input).attr('key')] = $(input).val();
         });
+    basicDataQuery['page'] = 0;
+    basicDataQuery['pageSize'] = 5;
     refreshBasicDataTable();
     return false;
 }
