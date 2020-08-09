@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 	filename: async function (req, file, cb) {
 		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
 	}
-})
+});
 
 var upload = multer({
 	storage: storage,
@@ -75,7 +75,7 @@ app.post('/basic/insert', async (req, res, next) => {
 	catch (err) {
 		return next(err);
 	}
-})
+});
 
 app.get('/basic/data', async (req, res, next) => {
 	let { companyId, audienceCount, page, pageSize } = req.query;
@@ -115,7 +115,7 @@ app.post('/advance/insert', async (req, res, next) => {
 	catch (err) {
 		return next(err);
 	}
-})
+});
 
 app.get('/advance/data', async (req, res, next) => {
 	let { companyId, audienceCount, cost, page, pageSize } = req.query;

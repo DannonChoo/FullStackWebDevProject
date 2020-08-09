@@ -61,7 +61,7 @@ async function insertOptions(options, optionType) {
     finally {
         client.end();
     }
-}
+};
 
 async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     let whereClause;
@@ -101,7 +101,7 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
     finally {
         client.end();
     }
-}
+};
 
 async function getBasicComputationInfo(inputOptions, budget) {
 
@@ -136,7 +136,7 @@ async function getBasicComputationInfo(inputOptions, budget) {
     finally {
         client.end();
     }
-}
+};
 
 async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageSize = 20) {
     let whereClause;
@@ -180,7 +180,7 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
     finally {
         client.end();
     }
-}
+};
 
 async function getAdvanceComputationInfo(inputOptions, budget) {
 
@@ -213,7 +213,7 @@ async function getAdvanceComputationInfo(inputOptions, budget) {
     finally {
         client.end();
     }
-}
+};
 
 module.exports = {
     resetTable,
