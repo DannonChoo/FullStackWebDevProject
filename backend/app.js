@@ -45,6 +45,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', (req, res) => {
+    return res.json({
+        message: "Welcome to JiBaBoom - hmmm",
+        availableEndpoints: [
+             'POST /basic/insert { "data": [ {key1: value1, key2: value2, ...} ] }',
+             'POST /advance/insert { "data": [ {key1: value1, key2: value2, ...} ] }',
+             'GET /basic/result?para1=value1&para2=value2',
+             'GET /advance/result?para1=value1&para2=value2',
+        ]
+    });
+});
+
 //reset
 app.get('/reset', async (req, res, next) => {
 	try {
