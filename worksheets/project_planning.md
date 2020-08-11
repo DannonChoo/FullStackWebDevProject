@@ -46,7 +46,6 @@ This document helps you identify the smaller tasks and helps you create a rough 
 | 4    | Basic | Frontend           | Data Viewer            |    Wireframe               |
 | 5    | Basic | Frontend & Backend | Fixed Pagination Break | Implementation             |
 | 5    | Basic | Worksheets         | ---------------------- |    Update all worksheets   |
-
 | 7    | Basic           | Backend            | Query Data               | Implementation                                           |
 | 8    | Basic           | Backend            | Query Results            | Implementation                                           |
 | 9    | Basic           | Frontend           | Result Viewer            | Create Add & Delete Input Field                          |
@@ -69,7 +68,6 @@ This document helps you identify the smaller tasks and helps you create a rough 
 | 4    | Basic | Frontend   | Data Viewer   |            HTML            |
 | 5    | Basic | Frontend   | Data Viewer   |          Wireframe         |
 | 5    | Basic | Worksheets | ------------- |    Update all worksheets   |
-
 | 7    | Basic           | Backend            | Query Data               | Implementation                                           |
 | 8    | Basic           | Backend            | Query Results            | Implementation                                           |
 | 9    | Basic           | Frontend           | Result Viewer            | Create Add & Delete Input Field                          |
