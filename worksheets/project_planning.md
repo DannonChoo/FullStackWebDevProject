@@ -47,6 +47,17 @@ This document helps you identify the smaller tasks and helps you create a rough 
 | 5    | Basic | Frontend & Backend | Fixed Pagination Break | Implementation             |
 | 5    | Basic | Worksheets         | ---------------------- |    Update all worksheets   |
 
+| 7    | Basic           | Backend            | Query Data               | Implementation                                           |
+| 8    | Basic           | Backend            | Query Results            | Implementation                                           |
+| 9    | Basic           | Frontend           | Result Viewer            | Create Add & Delete Input Field                          |
+| 10   | Advance         | Backend            | Algorithm                | Code Algorithm for Advance                               |
+| 11   | Advance         | Frontend           | Data Viewer              | Update all worksheets                                    |
+| 12   | Advance         | Backend            | Async Functions          | Update all worksheets                                    |
+| 13   | Advance         | Frontend & Backend | Advanced CSV format      | Create API and new page with CSV format for OptionIds    |
+| 14   | Advance         | Frontend & Backend | Advanced insert CSV file | Create new API and new page with CSV upload for OptionId |
+| 15   | Basic & Advance | Frontend & Backend | Hosting                  | Hosting Frontend & Backend                               |
+| 16   | Basic & Advance | Worksheets         | ------------------------ | Update all worksheets                                    |
+
 
 ### Member 2 - Dannon Choo Jian Hao
 
@@ -58,5 +69,16 @@ This document helps you identify the smaller tasks and helps you create a rough 
 | 4    | Basic | Frontend   | Data Viewer   |            HTML            |
 | 5    | Basic | Frontend   | Data Viewer   |          Wireframe         |
 | 5    | Basic | Worksheets | ------------- |    Update all worksheets   |
+
+| 7    | Basic           | Backend            | Query Data               | Implementation                                           |
+| 8    | Basic           | Backend            | Query Results            | Implementation                                           |
+| 9    | Basic           | Frontend           | Result Viewer            | Create Add & Delete Input Field                          |
+| 10   | Advance         | Backend            | Algorithm                | Code Algorithm for Advance                               |
+| 11   | Advance         | Frontend           | Data Viewer              | Update all worksheets                                    |
+| 12   | Advance         | Backend            | Async Functions          | Update all worksheets                                    |
+| 13   | Advance         | Frontend & Backend | Advanced CSV format      | Create API and new page with CSV format for OptionIds    |
+| 14   | Advance         | Frontend & Backend | Advanced insert CSV file | Create new API and new page with CSV upload for OptionId |
+| 15   | Basic & Advance | Frontend & Backend | Hosting                  | Hosting Frontend & Backend                               |
+| 16   | Basic & Advance | Worksheets         | ------------------------ | Update all worksheets                                    |
 
 > This is just a template, you just need to state **WHO** will do **WHAT** and **WHEN**.

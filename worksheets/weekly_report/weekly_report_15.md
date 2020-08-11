@@ -4,15 +4,14 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Add another advanced feature (CSV file upload)
+-   Check Validation
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Fixed pagination bug in data viewer
+-   Allow page size for every page in data viewer
+-   Hosted website on github pages and heroku
 
 ## Additional Thoughts
 

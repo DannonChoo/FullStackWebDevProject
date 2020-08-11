@@ -4,15 +4,15 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Query Basic results
+-   Create Frontend for Result viewer
+-   Add and Delete buttons for OptionIds
+-   Start Advance requirements
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Design Advance data viewer
+-   Start implementing advance Algorithm
 
 ## Additional Thoughts
 

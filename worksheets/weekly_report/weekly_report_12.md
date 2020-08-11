@@ -4,15 +4,14 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Finish algorithm
+-   Code frontend for advance result viewer
+-   Implement Dark Mode
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Change backend code to use async functions
+-   Fix validation
 
 ## Additional Thoughts
 

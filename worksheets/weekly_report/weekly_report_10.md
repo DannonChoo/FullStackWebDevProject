@@ -4,15 +4,13 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Design Advance data viewer
+-   Start implementing advance Algorithm
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Continue implementing advance Algorithm
+-   Design advance frontend
 
 ## Additional Thoughts
 

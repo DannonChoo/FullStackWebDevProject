@@ -4,15 +4,13 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+- Prepare for interview and demonstration.
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Fix Pagination
+-   Add NOT NULL to CREATE table
+-   Validation for empty array insert
 
 ## Additional Thoughts
 

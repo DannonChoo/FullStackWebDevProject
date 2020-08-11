@@ -4,15 +4,14 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Fixed Pagination
+-   Added NOT NULL to CREATE table
+-   Validation for empty array insert
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Start Query Data for basic requirement
+-   Design frontend
 
 ## Additional Thoughts
 
