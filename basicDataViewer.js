@@ -46,13 +46,10 @@ function getBasicDataFromBackEnd(callback) {
 
 function refreshBasicDataTable() {
     getBasicDataFromBackEnd(function (err, data) {
-        if (data.length == 0) {
-            return alert('No results');
-        }
-
+    
         console.log("data" + JSON.stringify(data));
 
-        if (err) return alert(err);
+        if (err) return alert(err.responseJSON.error);
         dataCount = parseInt(data[0].noofrows);
         var totalPg = (Math.ceil(dataCount / basicDataQuery['pageSize'])) - 1;
         if (basicDataQuery['page'] == 0) {
