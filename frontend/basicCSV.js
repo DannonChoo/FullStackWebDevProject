@@ -1,4 +1,4 @@
-const basicCSVResultUrl = 'http://localhost:3000/basic/result';
+const basicCSVResultUrl = 'https://fsp-jibaboom-2a14-hmmm.herokuapp.com/basic/result';
 
 const basicCSVResultQuery = {
     optionIds: null,

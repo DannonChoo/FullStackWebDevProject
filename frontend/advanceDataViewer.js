@@ -22,7 +22,7 @@ const advanceDataPaginationFunction = {
     }
 };
 
-const advanceDataUrl = 'http://localhost:3000/advance/data';
+const advanceDataUrl = 'https://fsp-jibaboom-2a14-hmmm.herokuapp.com/advance/data';
 
 function populateAdvanceDataTable(data) {
     console.log(data);
