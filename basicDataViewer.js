@@ -21,7 +21,7 @@ const basicDataPaginationFunction = {
     }
 };
 
-const basicDataUrl = 'http://localhost:3000/basic/data';
+const basicDataUrl = 'https://fsp-jibaboom-2a14-hmmm.herokuapp.com/basic/data';
 
 function populateBasicDataTable(data) {
     console.log(data);

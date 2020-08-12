@@ -1,4 +1,4 @@
-const advanceResultUrl = 'http://localhost:3000/advance/result';
+const advanceResultUrl = 'https://fsp-jibaboom-2a14-hmmm.herokuapp.com/advance/result';
 
 const advanceResultQuery = {
     optionIds: [],
