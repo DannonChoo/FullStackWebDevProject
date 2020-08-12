@@ -37,7 +37,7 @@ async function resetTable() {
     }
 };
 
-//basic
+// Insert Options
 async function insertOptions(options, optionType) {
     console.log(optionType);
     if (options.length == 0) {
@@ -93,6 +93,9 @@ async function getOptions(companyId, audienceCount, page = 0, pageSize = 20) {
         let result = await client.query(query, values);
         const { rows } = result;
         console.log(rows);
+        if (rows.length == 0) {
+            throw { 'message': 'No Result', 'status': 400 };
+        }
         return rows;
     }
     catch (err) {
@@ -172,6 +175,9 @@ async function getAdvanceOptions(companyId, audienceCount, cost, page = 0, pageS
         let result = await client.query(query, values);
         const { rows } = result;
         console.log(rows);
+        if (rows.length == 0) {
+            throw { 'message': 'No Result', 'status': 400 };
+        }
         return rows;
     }
     catch (err) {

@@ -47,13 +47,11 @@ function getAdvanceDataFromBackEnd(callback) {
 
 function refreshAdvanceDataTable() {
     getAdvanceDataFromBackEnd(function (err, data) {
-        if (data.length == 0) {
-            return alert('No results');
-        }
 
         console.log("data" + JSON.stringify(data));
 
-        if (err) return alert(err);
+        if (err) return alert(err.responseJSON.error);
+        
         dataCount = parseInt(data[0].noofrows);
         var totalPg = (Math.ceil(dataCount / advanceDataQuery['pageSize'])) - 1;
         if (advanceDataQuery['page'] == 0) {
