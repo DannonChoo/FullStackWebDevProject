@@ -1,6 +1,6 @@
 function validateResultAPI(options, budget) {
 
-    if (!options && !budget) {
+    if (options == '' && budget == '') {
         return { 'message': 'Missing Options and Budget Field', 'status': 400 };
     }
 

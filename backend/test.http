@@ -123,6 +123,14 @@ POST http://localhost:3000/advance/insert HTTP/1.1
 Content-Type: application/json
 
 {
+    "data": []
+}
+
+###
+POST http://localhost:3000/advance/insert HTTP/1.1
+Content-Type: application/json
+
+{
     "data": [
         {
             "optionId": 1000000001,
